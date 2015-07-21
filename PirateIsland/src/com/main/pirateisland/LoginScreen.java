@@ -1,4 +1,7 @@
 package com.main.pirateisland;
+import java.sql.*;
+import javax.swing.*;
+
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -31,5 +34,11 @@ public class LoginScreen extends ActionBarActivity {
 			return   true; 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	Connection connection=null;
+	public LoginScreen(){
+		//initialize
+		//connection=sqlliteconnection.dbConnector();
+		
 	}
 }

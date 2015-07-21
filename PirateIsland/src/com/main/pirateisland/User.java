@@ -4,6 +4,7 @@ public class User {
 	
 	 //private variables
     String _name;
+    
     int _years_old;
     
     // Empty constructor
