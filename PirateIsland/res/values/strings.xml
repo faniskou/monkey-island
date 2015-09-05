@@ -12,4 +12,6 @@
     <string name="create_account">Create Account</string>
     <string name="text_pass">no pass propably error</string>
     <string name="text_name">no name propably error</string>
+    <string name="title_activity_exercise1">Exercise1</string>
+
 </resources>
