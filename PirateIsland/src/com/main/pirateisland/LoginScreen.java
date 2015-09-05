@@ -4,6 +4,7 @@ import java.sql.*;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,9 +39,6 @@ public class LoginScreen extends Activity {
 		btnCreateAccount.setOnClickListener(new View.OnClickListener() {
  
 		public void onClick(View v) {
-
-			
-			// TODO Auto-generated method stub
  
 			String userName=editTextUserName.getText().toString();
 			String password=editTextPassword.getText().toString();
@@ -84,7 +82,11 @@ public class LoginScreen extends Activity {
 				if(password.equals(storedPassword))
 				{
 					Toast.makeText(getApplicationContext(), "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-					//fanis we must from here go to main application 
+					//TODO fanis we must from here go to main application 
+					Intent a = new Intent(LoginScreen.this, MainMenu.class);
+		            startActivity(a);
+		            finish();
+					
 				}
 				else
 				{
