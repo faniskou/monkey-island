@@ -1,11 +1,11 @@
 package com.main.pirateisland;
 
-import android.R.layout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+@SuppressWarnings("deprecation")
 public class MainMenu extends ActionBarActivity{
 
 	@Override
