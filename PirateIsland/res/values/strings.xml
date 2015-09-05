@@ -5,8 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
+    <string name="singin">Sing In</string>
     <string name="title_activity_login_screen">LoginScreen</string>
-        <string name="user_name">User Name</string>
-            <string name="text_password">Password</string>
-                <string name="create_account">Create Account</string>
+    <string name="user_name">User Name</string>
+    <string name="text_password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="text_pass">no pass propably error</string>
+    <string name="text_name">no name propably error</string>
 </resources>
