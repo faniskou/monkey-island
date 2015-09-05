@@ -2,35 +2,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
- 
     <EditText
         android:id="@+id/editTextUserNameToLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User Name"
+        android:hint="@+string/user_name"
         android:ems="10" >
         <requestFocus />
     </EditText>
- 
     <EditText
         android:id="@+id/editTextPasswordToLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:hint="@+string/text_password" />
  
     <Button
         android:id="@+id/buttonSignIn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In" />
+        android:text="@+string/sing_in"/>
     
     <Button
         android:id="@+id/buttonCreateAccount"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="@+string/create_account"
         android:layout_marginBottom="60dp" />
  
 </LinearLayout>
