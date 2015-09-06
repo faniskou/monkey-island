@@ -25,4 +25,14 @@
         android:layout_height="wrap_content"
         android:text="@string/text_pass" 
          android:paddingTop="40px"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="184dp"
+        android:text="Button" />
+
 </RelativeLayout>
