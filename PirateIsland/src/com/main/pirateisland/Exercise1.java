@@ -1,16 +1,16 @@
 package com.main.pirateisland;
 
-import android.support.v7.app.ActionBarActivity;
+//import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
-public class Exercise1 extends ActionBarActivity {
+public class Exercise1 extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +59,19 @@ public class Exercise1 extends ActionBarActivity {
 	    		if (answer == result){
 			    	 
 			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Σωστά!");
+			    	 textView6.setText("οΏ½οΏ½οΏ½οΏ½οΏ½!");
 			     }
 			     
 	             if (answer > result){
 			    	 
 			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λυπάμε, έκανες λάθος! Δοκίμασε ένα πιο μικρό νούμερο.");
+			    	 textView6.setText("οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½, οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½! οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.");
 			     }
 	             
 	             if (answer < result){
 			    	 
 			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λυπάμε, έκανες λάθος! Δοκίμασε ένα πιο μεγάλο νούμερο.");
+			    	 textView6.setText("οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½, οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½! οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.");
 			     }
 				
 			}
@@ -89,15 +89,4 @@ public class Exercise1 extends ActionBarActivity {
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }
