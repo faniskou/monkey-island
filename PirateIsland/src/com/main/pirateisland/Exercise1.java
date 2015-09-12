@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.graphics.Color;
 
 public class Exercise1 extends Activity {
 	
@@ -71,6 +72,23 @@ public class Exercise1 extends Activity {
 			    	 //textView6.setText("Σωστά!");
 			     //}
 	    		
+	    		
+                if (errorflag == 3){
+	    			
+	    			if (answer == result){
+				    	 
+				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 textView6.setText("Σωστά!!!!");	
+				    	 
+	    			}
+	    			else {
+	                     TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 textView6.setText("Για σκέψου το καλύτερα!");
+	    			}
+	    			
+	    			
+	    		}
+	    		
 	    		if (errorflag == 2){
 	    			
 	    			if (answer == result){
@@ -78,6 +96,23 @@ public class Exercise1 extends Activity {
 				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
 				    	 textView6.setText("Σωστά!!!!");	
 				    	 
+	    			}
+	    			else {
+	    				TextView textView7 = (TextView) findViewById(R.id.textView7);
+	    				textView7.setTextColor(Color.parseColor("#FFFFFF"));
+	    				
+	    				TextView textView8 = (TextView) findViewById(R.id.textView8);
+	    				textView8.setTextColor(Color.parseColor("#FF0000"));
+	    				
+	    				TextView textView9 = (TextView) findViewById(R.id.textView9);
+	    				textView9.setTextColor(Color.parseColor("#FFFFFF"));
+	    				
+	    				TextView textView10 = (TextView) findViewById(R.id.textView10);
+	    				textView10.setTextColor(Color.parseColor("#FFFFFF"));
+	    				
+	    				TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 textView6.setText("Για σκέψου το καλύτερα!");
+				    	 errorflag = 3;
 	    			}
 	    			
 	    			
@@ -94,7 +129,7 @@ public class Exercise1 extends Activity {
 	    			
 	    			else {
 	    			 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Για δοκίμασε ξανά. Αυτή τη φορά επέλεξε έναν από τους 4 αριθμούς");
+			    	 textView6.setText("Λάθος. Επέλεξε έναν από τους 4 αριθμούς");
 		           
 			    	 
 			    	 //int A = result - 3;
@@ -105,10 +140,10 @@ public class Exercise1 extends Activity {
 			    	 textView7.setText(String.valueOf(A));
 			    	 
 			    	 TextView textView8 = (TextView) findViewById(R.id.textView8);
-			    	 textView8.setText(String.valueOf(B));
+			    	 textView8.setText(String.valueOf(result));
 			    	 
 			    	 TextView textView9 = (TextView) findViewById(R.id.textView9);
-			         textView9.setText(String.valueOf(result));
+			         textView9.setText(String.valueOf(B));
 			    	 
 			    	 TextView textView10 = (TextView) findViewById(R.id.textView10);
 			    	 textView10.setText(String.valueOf(C));
@@ -136,14 +171,14 @@ public class Exercise1 extends Activity {
 	             if (answer > result){
 			    	 
 			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λυπάμε, έκανες λάθος. Δοκίμασε ένα ποιό μικρό νούμερο.");
+			    	 textView6.setText("Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.");
 			    	 errorflag = 1;
 			     }
 	             
 	             if (answer < result){
 			    	 
 			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λυπάμε, έκανες λάθος. Δοκίμασε ένα ποιό μεγάλο νούμερο.");
+			    	 textView6.setText("Λάθος, δοκίμασε ένα ποιό μεγάλο νούμερο.");
 			    	 errorflag = 1;
 			    	 
 			     }
