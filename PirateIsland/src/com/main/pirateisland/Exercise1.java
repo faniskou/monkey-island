@@ -49,6 +49,12 @@ public class Exercise1 extends Activity {
 			     
 			     TextView textView3 = (TextView) findViewById(R.id.textView3);
 			     textView3.setText(String.valueOf(random2));
+			     
+			     TextView textView4 = (TextView) findViewById(R.id.textView4);
+			     textView4.setText("+");
+			     
+			     TextView textView5 = (TextView) findViewById(R.id.textView5);
+			     textView5.setText("=");
 				
 			}
 		});
