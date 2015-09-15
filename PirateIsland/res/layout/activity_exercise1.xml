@@ -38,7 +38,8 @@
         android:layout_alignBottom="@+id/textView1"
         android:layout_toRightOf="@+id/textView1"
         android:text="+"
-        android:textSize="35dp" />
+        android:textSize="35dp"
+        android:layout_marginRight="10dip" />
 
     <TextView
         android:id="@+id/textView3"
@@ -58,7 +59,8 @@
         android:layout_alignBottom="@+id/textView3"
         android:layout_marginLeft="34dp"
         android:layout_toRightOf="@+id/textView3"
-        android:textSize="35dp" />
+        android:textSize="35dp" 
+        android:layout_marginRight="10dip"/>
 
     <Button
         android:id="@+id/button2"
@@ -119,7 +121,8 @@
         android:layout_marginBottom="75dp"
         android:layout_toLeftOf="@+id/button1"
         android:text="A"
-        android:textSize="35dp" />
+        android:textSize="35dp"
+        android:layout_marginRight="10dip" />
 
     <TextView
         android:id="@+id/textView2"

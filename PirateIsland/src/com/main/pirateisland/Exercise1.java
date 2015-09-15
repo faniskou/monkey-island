@@ -57,6 +57,9 @@ public class Exercise1 extends Activity {
 			     
 			     TextView textView5 = (TextView) findViewById(R.id.textView5);
 			     textView5.setText("=");
+			     
+			     Button button1=(Button)findViewById(R.id.button1);
+			     button1.setVisibility(View.INVISIBLE);
 				
 			}
 		});
