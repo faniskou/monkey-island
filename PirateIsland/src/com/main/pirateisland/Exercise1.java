@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.graphics.Color;
+import java.io.IOException;
 
 public class Exercise1 extends Activity {
 	
 	int errorflag = 0; 
 	int A;
+	int MyException;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +73,15 @@ public class Exercise1 extends Activity {
 	    	   //int  result = random1 +random2;
 	    		
 	    		int answer = Integer.parseInt(editText1.getText().toString());
+	    		
 	     
 	    		//if (answer == result){
 			    	 
 			    	// TextView textView6 = (TextView) findViewById(R.id.textView6);
 			    	 //textView6.setText("Σωστά!");
 			     //}
+	    		
+	    		
 	    		
 	    		
                 if (errorflag == 3){

@@ -16,13 +16,6 @@
         android:layout_centerVertical="true"
         android:text="Άρχισε την άσκηση!" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="52dp" />
-
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
@@ -43,7 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1" />
+        android:layout_toRightOf="@+id/textView1"
+        android:text="+"
+        android:textSize="35dp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -51,7 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4" />
+        android:layout_toRightOf="@+id/textView4"
+        android:text="Β"
+        android:textSize="35dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -60,7 +57,8 @@
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
         android:layout_marginLeft="34dp"
-        android:layout_toRightOf="@+id/textView3" />
+        android:layout_toRightOf="@+id/textView3"
+        android:textSize="35dp" />
 
     <Button
         android:id="@+id/button2"
@@ -112,5 +110,25 @@
         android:layout_alignBottom="@+id/textView7"
         android:layout_alignLeft="@+id/textView3"
         android:text="B" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_marginBottom="75dp"
+        android:layout_toLeftOf="@+id/button1"
+        android:text="A"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:text="Πρόσθεσε τους 2 αριθμούς!"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
