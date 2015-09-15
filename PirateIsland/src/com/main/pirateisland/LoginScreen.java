@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 
 
 public class LoginScreen extends Activity {
 	
 	EditText editTextUserName,editTextPassword,editTextConfirmPassword;
 	Button btnCreateAccount,btnSignIn;
+	private MediaPlayer mp;
 	
 	logindatabaseadapter loginDataBaseAdapter;
 	@SuppressLint("CutPasteId")
@@ -25,6 +28,21 @@ public class LoginScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_screen);
+		
+		//Media Player
+		//to mp3 einai ston fakelo res/raw
+		//sto telos tou arxeiou exo OnDestroy na stamata otan kleinei
+		
+		int resId = R.raw.song1;
+		
+		
+		if (mp != null) {
+		     mp.release();
+		  }
+		
+		MediaPlayer mp=MediaPlayer.create(this, resId);
+		mp.start();
+		
 		// get Instance  of Database Adapter
 		loginDataBaseAdapter=new logindatabaseadapter(this);
 		loginDataBaseAdapter=loginDataBaseAdapter.open();
@@ -120,4 +138,12 @@ public class LoginScreen extends Activity {
 		//connection=sqlliteconnection.dbConnector();
 		
 	}
+	
+	@Override
+	 protected void onDestroy() {
+	   if(null!=mp){
+	  mp.release();
+	   }
+	   super.onDestroy();
+	 }
 }
