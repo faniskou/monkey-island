@@ -17,8 +17,8 @@ public class databasehelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase _db) 
 	{
-			_db.execSQL(logindatabaseadapter.DATABASE_CREATE);
- 
+			_db.execSQL(logindatabaseadapter.DATABASE_USERS_CREATE);
+			_db.execSQL(logindatabaseadapter.DATABASE_HIST_CREATE);
 	}
 	// Called when there is a database version mismatch meaning that the version
 	// of the database on disk needs to be upgraded to the current version.
