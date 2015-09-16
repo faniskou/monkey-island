@@ -14,5 +14,6 @@
     <string name="text_name">no name propably error</string>
     <string name="title_activity_exercise1">Exercise1</string>
     <string name="title_activity_split">SplitActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>
