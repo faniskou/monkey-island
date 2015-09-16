@@ -36,7 +36,21 @@ public class Exercise1 extends Activity {
          final int B = result - 1;
     	 final int C = result + 1;
 		
-		 Button button1 = (Button) findViewById(R.id.button1);
+    	 TextView textView1 = (TextView) findViewById(R.id.textView1);
+	     textView1.setText(String.valueOf(random1)); 
+	     
+	     TextView textView3 = (TextView) findViewById(R.id.textView3);
+	     textView3.setText(String.valueOf(random2));
+	     
+	     TextView textView4 = (TextView) findViewById(R.id.textView4);
+	     textView4.setText("+");
+	     
+	     TextView textView5 = (TextView) findViewById(R.id.textView5);
+	     textView5.setText("=");
+    	 
+    	 
+    	 
+		/* Button button1 = (Button) findViewById(R.id.button1);
 	     button1.setOnClickListener(new OnClickListener() {
 			
 	    	@Override
@@ -62,7 +76,7 @@ public class Exercise1 extends Activity {
 			     button1.setVisibility(View.INVISIBLE);
 				
 			}
-		});
+		}); */
 	     
 	     Button button2 = (Button) findViewById(R.id.button2);
 	     button2.setOnClickListener(new OnClickListener() {
