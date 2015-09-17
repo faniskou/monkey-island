@@ -21,6 +21,7 @@ public class LoginScreen extends Activity {
 	EditText editTextUserName,editTextPassword,editTextConfirmPassword;
 	Button btnCreateAccount,btnSignIn;
 	private MediaPlayer mp;
+	public MediaPlayer mPlayer;
 	
 	logindatabaseadapter loginDataBaseAdapter;
 	@SuppressLint("CutPasteId")
@@ -33,15 +34,17 @@ public class LoginScreen extends Activity {
 		//to mp3 einai ston fakelo res/raw
 		//sto telos tou arxeiou exo OnDestroy na stamata otan kleinei
 		
-		int resId = R.raw.song1;
+		//int resId = R.raw.song1;
 		
 		
-		if (mp != null) {
-		     mp.release();
-		  }
+		//if (mp != null) {
+		  //   mp.release();
+		 // }
 		
-		MediaPlayer mp=MediaPlayer.create(this, resId);
-		mp.start();
+		//MediaPlayer mp=MediaPlayer.create(this, resId);
+		//mp.start();
+		
+		StartPlayer();
 		
 		// get Instance  of Database Adapter
 		loginDataBaseAdapter=new logindatabaseadapter(this);
@@ -139,6 +142,22 @@ public class LoginScreen extends Activity {
 		
 	}
 	
+	public  void StartPlayer(){
+		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song1);
+
+
+		            // TODO Auto-generated method stub
+		            mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.song1);
+		            mPlayer.start();//Start playing the music
+
+		}
+		public void StopPlayer(){
+		            if(mPlayer!=null && mPlayer.isPlaying()){//If music is playing already
+		                mPlayer.stop();//Stop playing the music
+		          }
+		}
+	
+	
 	@Override
 	 protected void onDestroy() {
 	   if(null!=mp){
@@ -146,4 +165,22 @@ public class LoginScreen extends Activity {
 	   }
 	   super.onDestroy();
 	 }
+	/*
+	@Override
+	public void onResume() {
+       super.onResume();
+     StartPlayer();
+    }
+	
+	*/
+	
+	@Override
+	public void onPause() {
+       super.onPause();
+     StopPlayer();
+    }
+    
+		
+		
+	
 }

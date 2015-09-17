@@ -41,5 +41,12 @@ public class MainMenu extends Activity{
 			}
 		});
 	}
-
+	
+	/*
+	@Override
+	public void onResume() {
+       super.onResume();
+     StartPlayer();
+     }
+*/
 }
