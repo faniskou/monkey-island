@@ -1,40 +1,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image6"
     android:orientation="vertical" >
-    <EditText
-        android:id="@+id/editTextUserNameToLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/user_name"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
-    <EditText
-        android:id="@+id/editTextPasswordToLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/text_password" />
- 
-    <Button
-        android:id="@+id/buttonSignIn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/singin"/>
-    
-    <Button
-        android:id="@+id/buttonCreateAccount"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_account"
-        android:layout_marginBottom="60dp" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Καλώς όρισες!" />
+        android:fontFamily="sans-serif"
+        android:text="Καλώς ήρθες στο νησί των πειρατών!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0CF5E1"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:typeface="sans" />
+
+    <EditText
+        android:id="@+id/editTextUserNameToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/user_name" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextPasswordToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/text_password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/singin" />
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/create_account" />
  
 </LinearLayout>

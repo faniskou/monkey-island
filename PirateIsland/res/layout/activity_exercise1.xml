@@ -7,6 +7,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.main.pirateisland.Exercise1" >
+    
+   <!--  
+    <resources>
+    <array>
+     <item>@drawable/image1</item>
+     <item>@drawable/image2</item>
+     <item>@drawable/image3</item>
+     <item>@drawable/image4</item>
+     <item>@drawable/image5</item>
+     <item>@drawable/image6</item>
+     <item>@drawable/image7</item>        
+    </array>
+   </resources>
+   -->
 
     <TextView
         android:id="@+id/textView4"
