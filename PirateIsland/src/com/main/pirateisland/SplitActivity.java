@@ -2,6 +2,7 @@ package com.main.pirateisland;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -103,6 +104,19 @@ public class SplitActivity extends Activity {
 		switch (eventaction) {
 
 		case MotionEvent.ACTION_DOWN: // touch down so check if the finger is on
+			if (gamestate == 2)
+			{
+				Intent a = new Intent( SplitActivity.this,
+						MainActivity.class);
+				//we must change it accordingly 
+				a.putExtra("name", "no");
+				a.putExtra("pass", "user");
+				startActivity(a);
+			
+			    finish();
+			}
+			else
+			{
 			if (Y > textplace.y - 1 * (fontssize + 5)) {
 				checkwin();
 				myView.invalidate();
@@ -126,6 +140,7 @@ public class SplitActivity extends Activity {
 						break;
 					}
 				}
+			}
 			}
 
 			break;
@@ -226,7 +241,7 @@ public class SplitActivity extends Activity {
 		@Override
 		protected void onDraw(Canvas canvas) {
 			fontssize = 2* hop;
-			if (gamestate == 1) {
+			if (gamestate >= 1) {
 				paint.setColor(Color.LTGRAY);
 				paint.setTextSize(fontssize);
 				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y,
@@ -243,6 +258,7 @@ public class SplitActivity extends Activity {
 						+ 3 * (fontssize + 5), paint);
 				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
 						- 3 * (fontssize + 5), paint);
+				gamestate = 2;
 
 			} else {
 				canvas.drawBitmap(basketBitmap, basketplace.x, basketplace.y,

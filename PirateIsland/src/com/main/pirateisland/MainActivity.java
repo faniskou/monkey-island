@@ -1,8 +1,25 @@
 package com.main.pirateisland;
 
+import com.main.pirateisland.SplitActivity.MyFrame;
+
+import android.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Path.FillType;
+import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,11 +30,45 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	protected Boolean STEREOTYPO_LOT_OF_FAILS;
 	protected Boolean STEREOTYPO_BETTER_THAN_THIS;
+	logindatabaseadapter DataBase;
 	User curuser;
 	TextView textname, textpass;
 	Button button1;
+	private int placementscount = 6, move = -1, hop = 50;
+
+	private Point placement[];
+	private Point maxres, hopres;
+
+	MyFrame myView;
+
+	// create movement
+	private Handler mHandler;
+	private Runnable mUpdate = new Runnable() {
+		public void run() {
+			move = move * -1;
+			switch (move) {
+			case 1:
+				move = 0;
+				break;
+			case 0:
+				move = -1;
+				break;
+			case -1:
+				move = 1;
+				break;
+			default:
+				move = 1;
+				break;
+			}
+			myView.invalidate();
+			mHandler.postDelayed(this, 500);
+
+		}
+	};
 
 	protected User EvaluateUser(User tempuser) {
+		STEREOTYPO_LOT_OF_FAILS = true;
+		STEREOTYPO_BETTER_THAN_THIS = false;
 		if (tempuser._DIFFICULTY == 0) {
 			tempuser._DIFFICULTY = 1;
 		}
@@ -27,6 +78,7 @@ public class MainActivity extends Activity {
 		// // check if he in "LOT_OF_FAILS" Stereotipo
 		if (tempuser._MAXLEVEL >= 7) {
 			STEREOTYPO_BETTER_THAN_THIS = true;
+			tempuser._MAXLEVEL = 6;
 		}
 		tempuser._USERNEGATIVESCORE = tempuser._FAILSLEVEL1
 				+ tempuser._FAILSLEVEL2 + tempuser._FAILSLEVEL3
@@ -71,9 +123,26 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		STEREOTYPO_LOT_OF_FAILS = false;
-		STEREOTYPO_BETTER_THAN_THIS = false;
+		// create view
+		// get resolution before draw view
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		maxres = new Point(displaymetrics.widthPixels,
+				displaymetrics.heightPixels);
+		myView = new MyFrame(this);
+
+		hop = (int) displaymetrics.heightPixels / 60; //
+		hopres = new Point((int) displaymetrics.widthPixels / 60,
+				(int) displaymetrics.heightPixels / 60);
+		placement = new Point[6];
+		placement[0] = new Point(hopres.x * 6, hopres.y * 20);
+
+		placement[1] = new Point(hopres.x * 15, hopres.y * 45);
+		placement[2] = new Point(hopres.x * 21, hopres.y * 56);
+		placement[3] = new Point(hopres.x * 40, hopres.y * 40);
+		placement[4] = new Point(hopres.x * 30, hopres.y * 20);
+		placement[5] = new Point(hopres.x * 23, hopres.y * 15);
+
 		// get user
 		Intent i = getIntent();
 		String curname = i.getStringExtra("name");
@@ -84,22 +153,191 @@ public class MainActivity extends Activity {
 		}
 
 		// get Instance of Database Adapter
-		logindatabaseadapter DataBase;
+
 		DataBase = new logindatabaseadapter(this);
 		DataBase = DataBase.open();
 		curuser = DataBase.getUser(curname, curpass);
-
+		
+		// temp set user
+		if (curname == "no" && curpass == "user")
+		{
+			curuser._MAXLEVEL = 3;
+		curuser._FAILSLEVEL1 = 1;
+		curuser._FAILSLEVEL2 = 3;
+		curuser._DIFFICULTY = 2;
+		DataBase.updateAll(curuser);
+		curuser = DataBase.getUser(curname, curpass);
+		}
+		
 		// fix user
 		curuser = EvaluateUser(curuser);
 
+
+		
+		//start view
+		setContentView(myView);
+
 		// print user
-		PrintUser(curuser);
+		// PrintUser(curuser);
 
+		//start moves
+		mHandler = new Handler();
+		mHandler.post(mUpdate);
 
+	}
 
-				// Start NewActivity.class
-				//Intent myIntent = new Intent(MainActivity.this, Exercise1.class);
-				//startActivity(myIntent);
+	// draw screen
+	public class MyFrame extends View {
+
+		private Bitmap myBitmap, coinBitmap;
+		private Paint paint = new Paint();
+
+		public MyFrame(Context context) {
+			super(context);
+			Bitmap bitmapSource = BitmapFactory.decodeResource(getResources(),
+					com.main.pirateisland.R.drawable.neverlandmap);
+			myBitmap = Bitmap.createScaledBitmap(bitmapSource, maxres.x,
+					maxres.y, true);
+			bitmapSource = BitmapFactory.decodeResource(getResources(),
+					com.main.pirateisland.R.drawable.goldencoin);
+			coinBitmap = Bitmap
+					.createScaledBitmap(bitmapSource, hop, hop, true);
+
+			// Toast.makeText(getApplicationContext(),
+			//
+			// "maxx=" + maxres.x + "\nmaxy=" + maxres.y + "\nhop=" + hop,
+			// Toast.LENGTH_LONG).show();
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		protected void onDraw(Canvas canvas) {
+			canvas.drawBitmap(myBitmap, 1, 1, null);
+			paint.setColor(Color.BLACK);
+			paint.setTextSize(4 * hop);
+			paint.setStrokeWidth(4);
+
+			int score = (6 * 24 * curuser._DIFFICULTY)
+					+ (curuser._MAXLEVEL * 4 - curuser._USERNEGATIVESCORE);
+			canvas.drawBitmap(coinBitmap, 4, hop, null);
+
+			canvas.drawText(":" + new Integer(score).toString(), 4 + (4 * hop),
+					(4 * hop) + 4, paint);
+
+			for (int i = 0; i < placementscount; i++) {
+
+				if (i + 1 <= curuser._MAXLEVEL) {
+					if (i + 1 == curuser._MAXLEVEL) {
+						// paint triangle
+						paint.setColor(Color.GREEN);
+						paint.setStyle(Paint.Style.FILL_AND_STROKE);
+						paint.setAntiAlias(true);
+						Point s = new Point(placement[i].x, placement[i].y
+								- (4 * hop + move * hop));
+						Point a = new Point(0, 0);
+						Point b = new Point(-1 * hop, -2 * hop);
+						Point c = new Point(+1 * hop, -2 * hop);
+						Path path = new Path();
+						path.setFillType(FillType.EVEN_ODD);
+						path.moveTo(s.x + b.x, s.y + b.y);
+						path.lineTo(s.x + c.x, s.y + c.y);
+						path.lineTo(s.x + a.x, s.y + a.y);
+						path.lineTo(s.x + b.x, s.y + b.y);
+						path.close();
+						canvas.drawPath(path, paint);
+					}
+					paint.setColor(Color.GREEN);
+				} else {
+					paint.setColor(Color.GRAY);
+				}
+				canvas.drawCircle(placement[i].x, placement[i].y, 2 * hop,
+						paint);
+				if (i + 1 <= curuser._MAXLEVEL) {
+					paint.setColor(Color.WHITE);
+				} else {
+					paint.setColor(Color.DKGRAY);
+				}
+				canvas.drawCircle(placement[i].x, placement[i].y,
+						(int) (1.5 * hop), paint);
+				paint.setColor(Color.BLACK);
+				canvas.drawCircle(placement[i].x, placement[i].y, hop, paint);
+
+				if (i != 0) {
+					canvas.drawLine(placement[i - 1].x, placement[i - 1].y,
+							placement[i].x, placement[i].y, paint);
+				}
+
+			}
+
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+	}
+
+	@Override
+	protected void onPause() {
+
+		super.onPause();
+	}
+
+	// events when touching the screen
+	public boolean onTouchEvent(MotionEvent event) {
+
+		int eventaction = event.getAction();
+
+		int X = (int) event.getX();
+		int Y = (int) event.getY();
+
+		switch (eventaction) {
+
+		case MotionEvent.ACTION_DOWN:
+			// touch down so check if the finger is on
+			for (int i = 0; i < placementscount; i++) {
+				if (Math.abs(X - placement[i].x) < 80
+						&& Math.abs(Y - placement[i].y) < 80) {
+					// here i is touched ara i+1 pista
+					// Call the level
+					curuser._CURRENTLEVEL = i + 1;
+					DataBase.updateAll(curuser);
+					curuser = DataBase.getUser(curuser._USERNAME, curuser._AGE);
+					if (i + 1 == 1 || i + 1 == 3 || i + 1 == 5) {
+						Intent a = new Intent(MainActivity.this,
+								Exercise1.class);
+						a.putExtra("name", curuser._USERNAME);
+						a.putExtra("pass", curuser._AGE);
+						startActivity(a);
+					}
+					else
+					{
+						Intent a = new Intent(MainActivity.this,
+								SplitActivity.class);
+						a.putExtra("name", curuser._USERNAME);
+						a.putExtra("pass", curuser._AGE);
+						startActivity(a);
+					}
+					finish();
+				}
+			}
+
+			break;
+
+		case MotionEvent.ACTION_MOVE: // touch drag with the ball
+			// move the balls the same as the finger
+
+			break;
+
+		case MotionEvent.ACTION_UP:
+			// touch drop - just do things here after dropping
+
+			break;
+		}
+		// redraw the canvas
+
+		return true;
 
 	}
 
