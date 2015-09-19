@@ -71,11 +71,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_menu);
+		setContentView(R.layout.activity_main);
 		STEREOTYPO_LOT_OF_FAILS = false;
 		STEREOTYPO_BETTER_THAN_THIS = false;
-		textname = (TextView) findViewById(R.id.text_name);
-		textpass = (TextView) findViewById(R.id.text_pass);
 		// get user
 		Intent i = getIntent();
 		String curname = i.getStringExtra("name");
@@ -97,21 +95,12 @@ public class MainActivity extends Activity {
 		// print user
 		PrintUser(curuser);
 
-		// print user
-		textname.setText(curuser._USERNAME);
-		textpass.setText(curuser._AGE);
 
-		// button for use
-		button1 = (Button) findViewById(R.id.button1);
-		// Capture button clicks
-		button1.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
 
 				// Start NewActivity.class
-				Intent myIntent = new Intent(MainActivity.this, Exercise1.class);
-				startActivity(myIntent);
-			}
-		});
+				//Intent myIntent = new Intent(MainActivity.this, Exercise1.class);
+				//startActivity(myIntent);
+
 	}
 
 }
