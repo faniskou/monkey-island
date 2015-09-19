@@ -2,22 +2,24 @@ package com.main.pirateisland;
 
 //import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.EditText;
-import android.graphics.Color;
-import java.io.IOException;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Exercise1 extends Activity {
 	
 	int errorflag = 0; 
 	int A;
 	int MyException;
-
+	TextView aaa;
+	logindatabaseadapter loginDataBaseAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +28,12 @@ public class Exercise1 extends Activity {
 		
 		//monimes metavlites, den allazoun
 		//gia allagi me to patioma enos koumpiou, orizoume mesa sta koumpia k oxi final
+		
+		
+		aaa =(TextView)findViewById(R.id.textview11);
+		Intent i= getIntent();
+		aaa.setText(i.getStringExtra("name"));
+	    
 		
 		final int  random1 = (int) ((Math.random() * 10 ) + 1);
 		final int  random2 = (int) ((Math.random() * 10 ) + 1);
@@ -48,35 +56,10 @@ public class Exercise1 extends Activity {
 	     TextView textView5 = (TextView) findViewById(R.id.textView5);
 	     textView5.setText("=");
     	 
+	     //loginDataBaseAdapter=new logindatabaseadapter(this);
+			//loginDataBaseAdapter=loginDataBaseAdapter.open();
     	 
-    	 
-		/* Button button1 = (Button) findViewById(R.id.button1);
-	     button1.setOnClickListener(new OnClickListener() {
-			
-	    	@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-	    		 
-	    		//int  random1 = (int) ((Math.random() * 10 ) + 1);
-	    		//int  random2 = (int) ((Math.random() * 10 ) + 1);
-	    		
-				TextView textView1 = (TextView) findViewById(R.id.textView1);
-			     textView1.setText(String.valueOf(random1)); 
-			     
-			     TextView textView3 = (TextView) findViewById(R.id.textView3);
-			     textView3.setText(String.valueOf(random2));
-			     
-			     TextView textView4 = (TextView) findViewById(R.id.textView4);
-			     textView4.setText("+");
-			     
-			     TextView textView5 = (TextView) findViewById(R.id.textView5);
-			     textView5.setText("=");
-			     
-			     Button button1=(Button)findViewById(R.id.button1);
-			     button1.setVisibility(View.INVISIBLE);
-				
-			}
-		}); */
+		
 	     
 	     Button button2 = (Button) findViewById(R.id.button2);
 	     button2.setOnClickListener(new OnClickListener() {
@@ -107,6 +90,11 @@ public class Exercise1 extends Activity {
 				    	 
 				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
 				    	 textView6.setText("Σωστά!!!!");	
+				    	 
+				    	// loginDataBaseAdapter.updateEX(errorflag);
+						// Toast.makeText(getApplicationContext(), "Success ", Toast.LENGTH_LONG).show();
+
+				    	 
 				    	 
 	    			}
 	    			else {

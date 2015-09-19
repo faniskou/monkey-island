@@ -96,4 +96,17 @@ public class logindatabaseadapter {
 		String where = "USERNAME = ?";
 		db.update("USERS", updatedValues, where, new String[] { userName });
 	}
+	
+	public void updateEX(int errorflag) {
+		// Define the updated row content.
+		ContentValues updatedValues = new ContentValues();
+		// Assign values for each row.
+		updatedValues.put("FAILSLEVEL1", errorflag);
+		
+
+		String where = "USERNAME = ?";
+		//String[] whereArgs = new int[errorflag];
+		db.update("USERS", updatedValues, where, null);
+	}
+	
 }
