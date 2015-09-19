@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 public class logindatabaseadapter {
 	static final String DATABASE_NAME = "islanddata.db";
@@ -164,5 +165,19 @@ public class logindatabaseadapter {
 		// String[] whereArgs = new int[errorflag];
 		db.update("USERS", updatedValues, where, null);
 	}
+	
+	public void showErrors(String userName, String age) {
+		int aaa;
+		Cursor cursor = db.query("USERS", null, " USERNAME=? and AGE=?",
+				new String[] { userName, age }, null, null, null);
+		
+		if (cursor.getCount() < 1) // UserName Not Exist
+		{
+			cursor.close();
+            Toast.makeText(context, "kane tin askisi 1", Toast.LENGTH_SHORT).show();
+		}
+		cursor.moveToFirst();
+	    aaa = cursor.getInt(cursor.getColumnIndex("FAILSLEVEL1"));
+	    }
 
 }
