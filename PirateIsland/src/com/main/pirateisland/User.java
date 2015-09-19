@@ -18,26 +18,38 @@ public class User {
 
     
     
-    // Empty constructor
-  //  public User(){
+   //  Empty constructor
+    public User(){
          
-  //  }
- //   public User(String name, int years_old){
-//        this._name = name;
-//        this._years_old = years_old;
-//        this._USERNAME=;
-//        this._AGE=;
-//        this._FAILSLEVEL1=;
-//        this._FAILSLEVEL2=;
-//        this._FAILSLEVEL3=;
-//        this._FAILSLEVEL4=;
-//        this._FAILSLEVEL5=;
-//        this._FAILSLEVEL6=;
-//        this._USERNEGATIVESCORE=;
-//        this._MAXLEVEL=;
-//        this._CURRENTLEVEL=;
-//        this._DIFFICULTY=;
- //   }
+    }
+    public User(
+    	    String USERNAME,
+    	    String AGE,
+    	    int FAILSLEVEL1,
+    	    int FAILSLEVEL2,
+    	    int FAILSLEVEL3,
+    	    int FAILSLEVEL4,
+    	    int FAILSLEVEL5,
+    	    int FAILSLEVEL6,
+    	    int USERNEGATIVESCORE,
+    	    int MAXLEVEL,
+    	    int CURRENTLEVEL,
+    	    int DIFFICULTY
+    		
+    		){
+          this._USERNAME = USERNAME;
+          this._AGE = AGE;
+          this._FAILSLEVEL1=FAILSLEVEL1;
+          this._FAILSLEVEL2=FAILSLEVEL2;
+          this._FAILSLEVEL3=FAILSLEVEL3;
+          this._FAILSLEVEL4=FAILSLEVEL4;
+          this._FAILSLEVEL5=FAILSLEVEL5;
+          this._FAILSLEVEL6=FAILSLEVEL6;
+          this._USERNEGATIVESCORE=USERNEGATIVESCORE;
+          this._MAXLEVEL=MAXLEVEL;
+          this._CURRENTLEVEL=CURRENTLEVEL;
+          this._DIFFICULTY=DIFFICULTY;
+    }
     
 
 }
