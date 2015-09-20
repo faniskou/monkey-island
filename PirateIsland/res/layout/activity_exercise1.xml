@@ -8,19 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.main.pirateisland.Exercise1" >
     
-   <!--  
-    <resources>
-    <array>
-     <item>@drawable/image1</item>
-     <item>@drawable/image2</item>
-     <item>@drawable/image3</item>
-     <item>@drawable/image4</item>
-     <item>@drawable/image5</item>
-     <item>@drawable/image6</item>
-     <item>@drawable/image7</item>        
-    </array>
-   </resources>
-   -->
+   
 
     <TextView
         android:id="@+id/textView4"
@@ -103,8 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView10"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignBottom="@+id/textView1"
         android:ems="10"
         android:inputType="number" />
 
@@ -132,9 +120,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignRight="@+id/textView7"
+        android:layout_below="@+id/textView2"
         android:text="A"
         android:textSize="35dp" />
 
