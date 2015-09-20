@@ -138,13 +138,4 @@
         android:text="A"
         android:textSize="35dp" />
 
-    <TextView
-        android:id="@+id/textview11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="TextView" />
-
 </RelativeLayout>
