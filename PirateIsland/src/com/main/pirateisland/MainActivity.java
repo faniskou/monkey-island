@@ -1,8 +1,7 @@
 package com.main.pirateisland;
 
-import com.main.pirateisland.SplitActivity.MyFrame;
 
-import android.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,14 +13,11 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Path.FillType;
 import android.graphics.Point;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -210,6 +206,7 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated constructor stub
 		}
 
+		@SuppressLint({ "DrawAllocation", "UseValueOf" })
 		@Override
 		protected void onDraw(Canvas canvas) {
 			canvas.drawBitmap(myBitmap, 1, 1, null);
