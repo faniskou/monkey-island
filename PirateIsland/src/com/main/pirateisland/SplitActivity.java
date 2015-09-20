@@ -1,5 +1,7 @@
 package com.main.pirateisland;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,13 +33,18 @@ public class SplitActivity extends Activity {
 	// Perigrafh antikeimenwn
 	private int placementscount, minusplacementscount, resultplacementscount,
 			askedresultplacementscount = 0;
-	private int drawchoice, drawchoice2;
+	private int drawchoice, drawchoice2, drawbackround;
 	private int balID = -1;
 	private Point placement[];
 	private Point maxres, halfres, basketplace, placeme, textplace;
 	private int fontssize;
 	private int gamestate = 0;
-	private int hop= 50;
+	private int hop;
+	private int helpused =0;
+	private logindatabaseadapter DataBase;
+	private User curuser;
+	String[] backrounds = { "backround1", "backround2", "backround3",
+			"backround4", "backround5" };
 
 	MyFrame myView;
 
@@ -48,6 +55,7 @@ public class SplitActivity extends Activity {
 		placement = new Point[placementscount];
 		drawchoice = R.drawable.baby;
 		drawchoice2 = R.drawable.basket;
+		drawbackround = R.drawable.backround1;
 	}
 
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
@@ -60,7 +68,7 @@ public class SplitActivity extends Activity {
 			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
 			float delta = mAccelCurrent - mAccelLast;
 			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-			if (mAccel > 10) {
+			if (mAccel > 11) {
 				checkwin();
 				myView.invalidate();
 			}
@@ -104,43 +112,62 @@ public class SplitActivity extends Activity {
 		switch (eventaction) {
 
 		case MotionEvent.ACTION_DOWN: // touch down so check if the finger is on
-			if (gamestate == 2)
-			{
-				Intent a = new Intent( SplitActivity.this,
-						MainActivity.class);
-				//we must change it accordingly 
+			if (gamestate == 2) {
+				// temp set user
+				switch (curuser._CURRENTLEVEL) {
+				  case 1:curuser._FAILSLEVEL1   = helpused;
+				  case 2:curuser._FAILSLEVEL2   = helpused;
+				  case 3:curuser._FAILSLEVEL3   = helpused;
+				  case 4:curuser._FAILSLEVEL4   = helpused;
+				  case 5:curuser._FAILSLEVEL5   = helpused;
+				  case 6:curuser._FAILSLEVEL6   = helpused;
+				  default:
+		//		        statements // they are executed if none of the above case is satisfied
+				        break;
+				}
+
+				if (curuser._MAXLEVEL == curuser._CURRENTLEVEL) {
+					curuser._MAXLEVEL = curuser._MAXLEVEL + 1;
+					
+					DataBase.updateAll(curuser);
+				}
+				Intent a = new Intent(SplitActivity.this, MainActivity.class);
+				// we must change it accordingly
 				a.putExtra("name", "no");
 				a.putExtra("pass", "user");
 				startActivity(a);
-			
-			    finish();
-			}
-			else
-			{
-			if (Y > textplace.y - 1 * (fontssize + 5)) {
-				checkwin();
-				myView.invalidate();
+
+				finish();
 			} else {
-				for (int i = 0; i < placementscount; i++) {
-					// check all the bounds of the ball
-					if (X > placement[i].x - 20 && X < placement[i].x + 70
-							&& Y > placement[i].y - 10
-							&& Y < placement[i].y + 90) {
-						if (basketplace.x > placement[i].x - 10
-								&& basketplace.x < placement[i].x + 10
-								&& basketplace.y > placement[i].y - 10
-								&& basketplace.y < placement[i].y + 10) {
+				if (Y <= textplace.y - 1 * (fontssize + 5)
+						&& Y >= textplace.y - 3 * (fontssize + 5)
+						&& X >= textplace.x + 10
+						&& X <= textplace.x + 10 + (fontssize * 22)
 
-							minusplacementscount--;
-							resultplacementscount++;
-							askedresultplacementscount--;
+				) {
+					checkwin();
+					myView.invalidate();
+				} else {
+					for (int i = 0; i < placementscount; i++) {
+						// check all the bounds of the ball
+						if (X > placement[i].x - 20 && X < placement[i].x + 70
+								&& Y > placement[i].y - 10
+								&& Y < placement[i].y + 90) {
+							if (basketplace.x > placement[i].x - 10
+									&& basketplace.x < placement[i].x + 10
+									&& basketplace.y > placement[i].y - 10
+									&& basketplace.y < placement[i].y + 10) {
 
+								minusplacementscount--;
+								resultplacementscount++;
+								askedresultplacementscount--;
+
+							}
+							balID = i;
+							break;
 						}
-						balID = i;
-						break;
 					}
 				}
-			}
 			}
 
 			break;
@@ -148,8 +175,8 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_MOVE: // touch drag with the ball
 			// move the balls the same as the finger
 			if (balID != -1) {
-				if (Math.abs(X - placement[balID].x) < 80
-						&& Math.abs(Y - placement[balID].y) < 80) {
+				if (Math.abs(X - placement[balID].x) < 20 * hop
+						&& Math.abs(Y - placement[balID].y) < 20 * hop) {
 					placement[balID] = new Point(X, Y);
 					myView.invalidate();
 				}
@@ -159,8 +186,8 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_UP:
 			// touch drop - just do things here after dropping
 			if (balID != -1) {
-				if (Math.abs(basketplace.x - placement[balID].x) < 80
-						&& Math.abs(basketplace.y - placement[balID].y) < 80) {
+				if (Math.abs(basketplace.x - placement[balID].x) < 30 * hop
+						&& Math.abs(basketplace.y - placement[balID].y) < 30 * hop) {
 					placement[balID] = new Point(basketplace.x, basketplace.y);
 					minusplacementscount++;
 					resultplacementscount--;
@@ -181,27 +208,39 @@ public class SplitActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		myView = new MyFrame(this);
-		setContentView(myView);
+
+		// get user
+		Intent inten = getIntent();
+		String curname = inten.getStringExtra("name");
+		String curpass = inten.getStringExtra("pass");
+		if (curname == null || curpass == null) {
+			curname = "no";
+			curpass = "user";
+		}
+		DataBase = new logindatabaseadapter(this);
+		DataBase = DataBase.open();
+		curuser = DataBase.getUser(curname, curpass);
+
+		// INITIALIZE PARAMETERS FOR SCREEN
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		maxres = new Point(displaymetrics.widthPixels,
 				displaymetrics.heightPixels);
-        hop  = 40 ; //
-        
+		hop = 10;
+
 		halfres = new Point(maxres.x / 2, maxres.y / 2);
 		int orientation = this.getResources().getConfiguration().orientation;
 		if (orientation == Configuration.ORIENTATION_PORTRAIT) {
 			placeme = new Point(maxres.x, halfres.y);
 			textplace = new Point(0, maxres.y);
-			hop = (int) ((double)halfres.x / 20) ;
-			basketplace = new Point(halfres.x + (5 * hop), halfres.y);
+			hop = (int) ((double) halfres.x / 60);
+			basketplace = new Point(halfres.x + (15 * hop), halfres.y);
 		} else {
 			placeme = new Point(halfres.x, maxres.y);
 
 			textplace = new Point(halfres.x, halfres.y);
-			hop = (int) ((double)halfres.y / 20) ;
-			basketplace = new Point(halfres.x, halfres.y + (4* hop));
+			hop = (int) ((double) halfres.y / 60);
+			basketplace = new Point(halfres.x, halfres.y + (12 * hop));
 		}
 		if (maxres.x < 300 || maxres.y < 300) {
 			Toast.makeText(getApplicationContext(),
@@ -213,7 +252,12 @@ public class SplitActivity extends Activity {
 					(int) ((Math.random() * (placeme.x - 100)) + 51),
 					(int) ((Math.random() * (placeme.y - 100)) + 51));
 		}
-		/* sensor initialize */
+
+		// SETVIEW
+		myView = new MyFrame(this);
+		setContentView(myView);
+
+		// INITIALIZE PARAMETERS FOR sensor after because it crashes
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mSensorManager.registerListener(mSensorListener,
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
@@ -226,41 +270,51 @@ public class SplitActivity extends Activity {
 	// draw screen
 	public class MyFrame extends View {
 
-		private Bitmap myBitmap, basketBitmap;
+		private Bitmap myBitmap, basketBitmap, backround;
 		private Paint paint = new Paint();
 
 		public MyFrame(Context context) {
 			super(context);
-			Bitmap bitmapSource = BitmapFactory.decodeResource(getResources(), drawchoice);
-			myBitmap = Bitmap.createScaledBitmap(bitmapSource, 2*hop , 2*hop, true);
-			bitmapSource = BitmapFactory.decodeResource(getResources(),	drawchoice2);
-			basketBitmap = Bitmap.createScaledBitmap(bitmapSource, 3*hop , 3*hop, true);
+			myBitmap = BitmapFactory.decodeResource(getResources(), drawchoice);
+			myBitmap = Bitmap.createScaledBitmap(myBitmap, 18 * hop, 18 * hop,
+					true);
+			basketBitmap = BitmapFactory.decodeResource(getResources(),
+					drawchoice2);
+			basketBitmap = Bitmap.createScaledBitmap(basketBitmap, 26 * hop,
+					26 * hop, true);
+			backround = BitmapFactory.decodeResource(getResources(),
+					drawbackround);
+			backround = Bitmap.createScaledBitmap(backround, maxres.x,
+					maxres.y, true);
+
 			// TODO Auto-generated constructor stub
 		}
 
 		@Override
 		protected void onDraw(Canvas canvas) {
-			fontssize = 2* hop;
+
+			fontssize = 6 * hop;
 			if (gamestate >= 1) {
 				paint.setColor(Color.LTGRAY);
 				paint.setTextSize(fontssize);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y,
+				String mess = getResources().getString(R.string.winmessage);
+				canvas.drawText(mess, 10, halfres.y, paint);
+				canvas.drawText(mess, 10, halfres.y + 1 * (fontssize + 5),
 						paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						+ 1 * (fontssize + 5), paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						- 1 * (fontssize + 5), paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						+ 2 * (fontssize + 5), paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						- 2 * (fontssize + 5), paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						+ 3 * (fontssize + 5), paint);
-				canvas.drawText("Συνχαρητήρια κερδίσατε !!! ", 10, halfres.y
-						- 3 * (fontssize + 5), paint);
+				canvas.drawText(mess, 10, halfres.y - 1 * (fontssize + 5),
+						paint);
+				canvas.drawText(mess, 10, halfres.y + 2 * (fontssize + 5),
+						paint);
+				canvas.drawText(mess, 10, halfres.y - 2 * (fontssize + 5),
+						paint);
+				canvas.drawText(mess, 10, halfres.y + 3 * (fontssize + 5),
+						paint);
+				canvas.drawText(mess, 10, halfres.y - 3 * (fontssize + 5),
+						paint);
 				gamestate = 2;
 
 			} else {
+				canvas.drawBitmap(backround, 1, 1, null);
 				canvas.drawBitmap(basketBitmap, basketplace.x, basketplace.y,
 						null);
 				for (int i = 0; i < placementscount; i++) {
@@ -270,10 +324,12 @@ public class SplitActivity extends Activity {
 				paint.setColor(Color.LTGRAY);
 				paint.setTextSize(fontssize);
 				int a = (placementscount - askedresultplacementscount);
-				canvas.drawText("Πρέπει να βάλουμε ", textplace.x + 10,
+				canvas.drawText(getResources()
+						.getString(R.string.moveitmessage), textplace.x + 10,
 						textplace.y - 6 * (fontssize + 5), paint);
-				canvas.drawText(a + " μωρά για υπνο. ", textplace.x + 10,
-						textplace.y - 5 * (fontssize + 5), paint);
+				canvas.drawText(a + " μωρά" + " στο κρεβάτι. ",
+						textplace.x + 10, textplace.y - 5 * (fontssize + 5),
+						paint);
 				canvas.drawText(placementscount + "  -  "
 						+ minusplacementscount + "  =   "
 						+ resultplacementscount, textplace.x + 10, textplace.y

@@ -26,8 +26,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	protected Boolean STEREOTYPO_LOT_OF_FAILS;
 	protected Boolean STEREOTYPO_BETTER_THAN_THIS;
-	logindatabaseadapter DataBase;
-	User curuser;
+	private logindatabaseadapter DataBase;
+	private User curuser;
 	TextView textname, textpass;
 	Button button1;
 	private int placementscount = 6, move = -1, hop = 50;
@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
 		// temp set user
 		if (curname == "no" && curpass == "user")
 		{
-			curuser._MAXLEVEL = 3;
+			curuser._MAXLEVEL = 2;
 		curuser._FAILSLEVEL1 = 1;
 		curuser._FAILSLEVEL2 = 3;
 		curuser._DIFFICULTY = 2;

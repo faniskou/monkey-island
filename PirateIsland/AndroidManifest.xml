@@ -41,7 +41,7 @@
             android:name=".SplitActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_split"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/MyTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
