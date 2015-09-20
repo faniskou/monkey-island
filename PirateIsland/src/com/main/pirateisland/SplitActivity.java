@@ -2,6 +2,8 @@ package com.main.pirateisland;
 
 import java.util.Random;
 
+import junit.framework.Assert;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +26,14 @@ import android.hardware.SensorManager;
 
 public class SplitActivity extends Activity {
 
+	public static int getDrawable(Context context, String name) {
+		Assert.assertNotNull(context);
+		Assert.assertNotNull(name);
+
+		return context.getResources().getIdentifier(name, "drawable",
+				context.getPackageName());
+	}
+
 	// ----- activity params ------
 	// sensor describe
 	private SensorManager mSensorManager;
@@ -40,22 +50,38 @@ public class SplitActivity extends Activity {
 	private int fontssize;
 	private int gamestate = 0;
 	private int hop;
-	private int helpused =0;
+	private int helpused = 0;
 	private logindatabaseadapter DataBase;
 	private User curuser;
+	String[] group;
 	String[] backrounds = { "backround1", "backround2", "backround3",
 			"backround4", "backround5" };
+
+	String[][] Groups = {
+			{ "bottle", "ship", " μπουκάλι", " μπουκάλια", " στο καράβι." },
+			{ "goldencoin", "sentoukiicon", " νόμισμα", " νομίσματα",
+					" στο σεντούκι." },
+			{ "hook", "boy", " γάτζο", " γάτζους", " στον Πειρατή." },
+			{ "mantili", "parrot", " μαντίλι", " μαντίλια", " στον παπαγάλο." },
+			{ "banana", "monkey", " μπανάνα", " μπανάνες", " στο πιθηκάκι." },
+			{ "peanut", "parrot", " φυστίκι", " φυστίκια", " στον παπαγάλο." },
+			{ "piratehatbase", "monkey", " καπέλο", " καπέλα", " στο πιθηκάκι." },
+			{ "ship", "boy", " καράβι", " καράβια", " στον Πειρατή." },
+			{ "ic_launcher", "ship", " νησί", " νησιά", " στο καράβι." },
+			{ "gold", "sentoukiicon", " χρυσό", " χρυσά", " στο σεντούκι." }
+	// {"baby","basket"," μωρό"," μωρά"," στο κρεβάτι."}
+	};
 
 	MyFrame myView;
 
 	public SplitActivity() {
 		placementscount = (int) ((Math.random() * 10) + 1);
-		askedresultplacementscount = (int) ((Math.random() * placementscount) + 1);
+		askedresultplacementscount = (int) ((Math.random() * placementscount));
+//if (placementscount == askedresultplacementscount) {askedresultplacementscount--;}
 		resultplacementscount = placementscount;
 		placement = new Point[placementscount];
-		drawchoice = R.drawable.baby;
-		drawchoice2 = R.drawable.basket;
-		drawbackround = R.drawable.backround1;
+
+
 	}
 
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
@@ -115,20 +141,27 @@ public class SplitActivity extends Activity {
 			if (gamestate == 2) {
 				// temp set user
 				switch (curuser._CURRENTLEVEL) {
-				  case 1:curuser._FAILSLEVEL1   = helpused;
-				  case 2:curuser._FAILSLEVEL2   = helpused;
-				  case 3:curuser._FAILSLEVEL3   = helpused;
-				  case 4:curuser._FAILSLEVEL4   = helpused;
-				  case 5:curuser._FAILSLEVEL5   = helpused;
-				  case 6:curuser._FAILSLEVEL6   = helpused;
-				  default:
-		//		        statements // they are executed if none of the above case is satisfied
-				        break;
+				case 1:
+					curuser._FAILSLEVEL1 = helpused;
+				case 2:
+					curuser._FAILSLEVEL2 = helpused;
+				case 3:
+					curuser._FAILSLEVEL3 = helpused;
+				case 4:
+					curuser._FAILSLEVEL4 = helpused;
+				case 5:
+					curuser._FAILSLEVEL5 = helpused;
+				case 6:
+					curuser._FAILSLEVEL6 = helpused;
+				default:
+					// statements // they are executed if none of the above case
+					// is satisfied
+					break;
 				}
 
 				if (curuser._MAXLEVEL == curuser._CURRENTLEVEL) {
 					curuser._MAXLEVEL = curuser._MAXLEVEL + 1;
-					
+
 					DataBase.updateAll(curuser);
 				}
 				Intent a = new Intent(SplitActivity.this, MainActivity.class);
@@ -150,13 +183,10 @@ public class SplitActivity extends Activity {
 				} else {
 					for (int i = 0; i < placementscount; i++) {
 						// check all the bounds of the ball
-						if (X > placement[i].x - 20 && X < placement[i].x + 70
-								&& Y > placement[i].y - 10
-								&& Y < placement[i].y + 90) {
-							if (basketplace.x > placement[i].x - 10
-									&& basketplace.x < placement[i].x + 10
-									&& basketplace.y > placement[i].y - 10
-									&& basketplace.y < placement[i].y + 10) {
+						if (Math.abs(X - (placement[i].x + (9 * hop))) < 20 * hop
+								&& Math.abs(Y - (placement[i].y + (9 * hop))) < 20 * hop) {
+							if (Math.abs(placement[i].x - basketplace.x) < 20 * hop
+									&& Math.abs(placement[i].y - basketplace.y) < 20 * hop) {
 
 								minusplacementscount--;
 								resultplacementscount++;
@@ -175,8 +205,8 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_MOVE: // touch drag with the ball
 			// move the balls the same as the finger
 			if (balID != -1) {
-				if (Math.abs(X - placement[balID].x) < 20 * hop
-						&& Math.abs(Y - placement[balID].y) < 20 * hop) {
+				if (Math.abs(X - (placement[balID].x + (9 * hop))) < 20 * hop
+						&& Math.abs(Y - (placement[balID].y + (9 * hop))) < 20 * hop) {
 					placement[balID] = new Point(X, Y);
 					myView.invalidate();
 				}
@@ -186,8 +216,9 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_UP:
 			// touch drop - just do things here after dropping
 			if (balID != -1) {
-				if (Math.abs(basketplace.x - placement[balID].x) < 30 * hop
-						&& Math.abs(basketplace.y - placement[balID].y) < 30 * hop) {
+				if (Math.abs(basketplace.x - (placement[balID].x + (12 * hop))) < 23 * hop
+						&& Math.abs(basketplace.y
+								- (placement[balID].y + (12 * hop))) < 23 * hop) {
 					placement[balID] = new Point(basketplace.x, basketplace.y);
 					minusplacementscount++;
 					resultplacementscount--;
@@ -252,7 +283,14 @@ public class SplitActivity extends Activity {
 					(int) ((Math.random() * (placeme.x - 100)) + 51),
 					(int) ((Math.random() * (placeme.y - 100)) + 51));
 		}
-
+		
+		group = Groups[new Random().nextInt(Groups.length)];
+	//	group = Groups[1];
+		drawchoice = getDrawable(this,group[0]);
+		drawchoice2 = getDrawable(this,group[1]);
+ 		drawbackround = getDrawable(this,
+  				(backrounds[new Random().nextInt(backrounds.length)]));
+	//	drawbackround = getDrawable(this,backrounds[0]);
 		// SETVIEW
 		myView = new MyFrame(this);
 		setContentView(myView);
@@ -295,20 +333,26 @@ public class SplitActivity extends Activity {
 
 			fontssize = 6 * hop;
 			if (gamestate >= 1) {
-				paint.setColor(Color.LTGRAY);
+				paint.setColor(Color.WHITE);
 				paint.setTextSize(fontssize);
 				String mess = getResources().getString(R.string.winmessage);
 				canvas.drawText(mess, 10, halfres.y, paint);
+				paint.setColor(Color.CYAN);
 				canvas.drawText(mess, 10, halfres.y + 1 * (fontssize + 5),
 						paint);
+				paint.setColor(Color.MAGENTA);
 				canvas.drawText(mess, 10, halfres.y - 1 * (fontssize + 5),
 						paint);
+							paint.setColor(Color.YELLOW);
 				canvas.drawText(mess, 10, halfres.y + 2 * (fontssize + 5),
 						paint);
+				paint.setColor(Color.BLUE);
 				canvas.drawText(mess, 10, halfres.y - 2 * (fontssize + 5),
 						paint);
+				paint.setColor(Color.RED);
 				canvas.drawText(mess, 10, halfres.y + 3 * (fontssize + 5),
 						paint);
+				paint.setColor(Color.DKGRAY);
 				canvas.drawText(mess, 10, halfres.y - 3 * (fontssize + 5),
 						paint);
 				gamestate = 2;
@@ -321,23 +365,30 @@ public class SplitActivity extends Activity {
 					canvas.drawBitmap(myBitmap, placement[i].x, placement[i].y,
 							null);
 				}
-				paint.setColor(Color.LTGRAY);
+				paint.setColor(Color.WHITE);
 				paint.setTextSize(fontssize);
 				int a = (placementscount - askedresultplacementscount);
 				canvas.drawText(getResources()
 						.getString(R.string.moveitmessage), textplace.x + 10,
 						textplace.y - 6 * (fontssize + 5), paint);
-				canvas.drawText(a + " μωρά" + " στο κρεβάτι. ",
+				String name;
+				if (a<2){
+					name = group[2];
+				}else {name = group[3];}
+				
+				canvas.drawText(a + name + group[4],
 						textplace.x + 10, textplace.y - 5 * (fontssize + 5),
 						paint);
 				canvas.drawText(placementscount + "  -  "
 						+ minusplacementscount + "  =   "
 						+ resultplacementscount, textplace.x + 10, textplace.y
 						- 3 * (fontssize + 5), paint);
-				canvas.drawText("Κουνήστε για επαλήθευση ", textplace.x + 10,
+				canvas.drawText(getResources()
+						.getString(R.string.movetocheck), textplace.x + 10,
 						textplace.y - 2 * (fontssize + 5), paint);
 				paint.setColor(Color.RED);
-				canvas.drawText("Πατήστε για επαλήθευση ", textplace.x + 10,
+				canvas.drawText(getResources()
+						.getString(R.string.hittocheck), textplace.x + 10,
 						textplace.y - 1 * (fontssize + 5), paint);
 			}
 		}

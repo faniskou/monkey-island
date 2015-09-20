@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="winmessage">Συνχαρητήρια κερδίσατε !!! </string>
-     <string name="moveitmessage">Πρέπει να μετακινήσουμε </string>
-    
+    <string name="moveitmessage">Πρέπει να μετακινήσουμε </string>
+    <string name="movetocheck">Κουνήστε για επαλήθευση </string>
+    <string name="hittocheck">Πατήστε για επαλήθευση </string>
+
 </resources>
