@@ -18,7 +18,7 @@ public class Exercise1 extends Activity {
 	int errorflag = 0; 
 	int A;
 	int MyException;
-	//String aaa;
+	TextView aaa;
 	logindatabaseadapter loginDataBaseAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,10 @@ public class Exercise1 extends Activity {
 		//gia allagi me to patioma enos koumpiou, orizoume mesa sta koumpia k oxi final
 		
 		
-		//aaa =(TextView)findViewById(R.id.textview11);
-		//Intent i= getIntent();
-		//aaa.setText(i.getStringExtra("name"));
+		aaa =(TextView)findViewById(R.id.textview11);
+		Intent i= getIntent();
+		aaa.setText(i.getStringExtra("name"));
 	    
-		//to Onoma tou xristi einai stin "name"
 		
 		final int  random1 = (int) ((Math.random() * 10 ) + 1);
 		final int  random2 = (int) ((Math.random() * 10 ) + 1);
