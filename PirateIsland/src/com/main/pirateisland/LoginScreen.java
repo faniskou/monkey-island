@@ -113,7 +113,7 @@ public class LoginScreen extends Activity {
 		{
 			Toast.makeText(getApplicationContext(), "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
 			//TODO here is actual coding for this Activity 
-			Intent a = new Intent(LoginScreen.this, MainMenu.class);
+			Intent a = new Intent(LoginScreen.this, MainActivity.class);
             a.putExtra("name",userName);
             a.putExtra("pass",password);
             startActivity(a);
