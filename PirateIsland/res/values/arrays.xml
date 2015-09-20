@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="loadingimages">
-        <item>@drawable/baby</item>
-        <item>@drawable/ic_launcher</item>
+  <string-array name="splttheme1">
+        <item>bottle</item>
+        <item>ship</item>
+        <item> μπουκάλι</item>
+        <item> μπουκάλια</item>
+        <item> στο καράβι.</item>
+    </string-array>
+    <string-array name="splttheme2">
+        <item>goldencoin</item>
+        <item>sentoukiicon</item>
+        <item> νόμισμα</item>
+        <item> νομίσματα</item>
+        <item> στο σεντούκι.</item>
+    </string-array>
+    <string-array name="splttheme3">
+        <item>hook</item>
+        <item>boy</item>
+        <item> γάτζο</item>
+        <item> γάτζους</item>
+        <item> στον Πειρατή.</item>
+    </string-array>
+    <string-array name="splttheme4">
+        <item>mantili</item>
+        <item>parrot</item>
+        <item> μαντίλι</item>
+        <item> μαντίλια</item>
+        <item> στον παπαγάλο.</item>
+    </string-array>
+    <string-array name="splttheme5">
+        <item>banana</item>
+        <item>monkey</item>
+        <item> μπανάνα</item>
+        <item> μπανάνες</item>
+        <item> στο πιθηκάκι.</item>
+    </string-array>
+    <string-array name="splttheme6">
+        <item>peanut</item>
+        <item>parrot</item>
+        <item> φυστίκι</item>
+        <item> φυστίκια</item>
+        <item> στον παπαγάλο.</item>
+    </string-array>
+    <string-array name="splttheme7">
+        <item>piratehatbase</item>
+        <item>monkey</item>
+        <item> καπέλο</item>
+        <item> καπέλα</item>
+        <item> στο πιθηκάκι.</item>
+    </string-array>
+    <string-array name="splttheme8">
+        <item>ship</item>
+        <item>boy</item>
+        <item> καράβι</item>
+        <item> καράβια</item>
+        <item> στον Πειρατή.</item>
+    </string-array>
+    <string-array name="splttheme9">
+        <item>ic_launcher</item>
+        <item>ship</item>
+        <item> νησί</item>
+        <item> νησιά</item>
+        <item> στο καράβι.</item>
+    </string-array>
+    <string-array name="splttheme10">
+        <item>gold</item>
+        <item>sentoukiicon</item>
+        <item> χρυσό</item>
+        <item> χρυσά</item>
+        <item> στο σεντούκι.</item>
     </string-array>
 
 </resources>

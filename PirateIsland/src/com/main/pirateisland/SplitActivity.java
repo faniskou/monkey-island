@@ -33,6 +33,14 @@ public class SplitActivity extends Activity {
 		return context.getResources().getIdentifier(name, "drawable",
 				context.getPackageName());
 	}
+	public static int getStringGroup(Context context, String name) {
+		Assert.assertNotNull(context);
+		Assert.assertNotNull(name);
+
+		return context.getResources().getIdentifier(name, "array",
+				context.getPackageName());
+	}
+
 
 	// ----- activity params ------
 	// sensor describe
@@ -71,7 +79,10 @@ public class SplitActivity extends Activity {
 			{ "gold", "sentoukiicon", " χρυσό", " χρυσά", " στο σεντούκι." }//
 	// {"baby","basket"," μωρό"," μωρά"," στο κρεβάτι."}
 	};
-
+	String[] spltthemes = {
+			"splttheme1","splttheme2","splttheme3","splttheme4","splttheme5",
+			"splttheme6","splttheme7","splttheme8","splttheme9","splttheme10"
+	};
 	MyFrame myView;
 
 	public SplitActivity() {
@@ -122,7 +133,7 @@ public class SplitActivity extends Activity {
 		if (placementscount == askedresultplacementscount) {
 			gamestate = 1;
 		} else {
-			Toast.makeText(getApplicationContext(), "Συνέχισε να προσπαθείς.",
+			Toast.makeText(getApplicationContext(),this.getResources().getString(  R.string.resumeplease),
 					Toast.LENGTH_LONG).show();
 		}
 	}
@@ -216,9 +227,9 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_UP:
 			// touch drop - just do things here after dropping
 			if (balID != -1) {
-				if (Math.abs(basketplace.x - (placement[balID].x + (12 * hop))) < 23 * hop
-						&& Math.abs(basketplace.y
-								- (placement[balID].y + (12 * hop))) < 23 * hop) {
+				if (Math.abs((basketplace.x + (4*hop)) - placement[balID].x ) < 20 * hop
+						&& Math.abs((basketplace.y + (4*hop))
+								- placement[balID].y ) < 20 * hop) {
 					placement[balID] = new Point(basketplace.x, basketplace.y);
 					minusplacementscount++;
 					resultplacementscount--;
@@ -285,16 +296,18 @@ public class SplitActivity extends Activity {
 		}
 		int temprandom = new Random().nextInt(Groups.length);
 		if (temprandom >=10) {temprandom=9;}	
-		group = Groups[temprandom];
+
+		int g = getStringGroup(this,spltthemes[temprandom]);	
+		String gs[] = this.getResources().getStringArray( g);	
+		group= gs;
+
 		
-		//group = Groups[1];
 		drawchoice = getDrawable(this,group[0]);
 		drawchoice2 = getDrawable(this,group[1]);
 		temprandom = new Random().nextInt(backrounds.length);
 		if (temprandom >=5) {temprandom=4;}	
  		drawbackround = getDrawable(this,
   				(backrounds[temprandom]));
-	//	drawbackround = getDrawable(this,backrounds[0]);
 		// SETVIEW
 		myView = new MyFrame(this);
 		setContentView(myView);
