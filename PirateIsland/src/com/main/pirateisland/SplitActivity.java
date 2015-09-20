@@ -58,17 +58,17 @@ public class SplitActivity extends Activity {
 			"backround4", "backround5" };
 
 	String[][] Groups = {
-			{ "bottle", "ship", " μπουκάλι", " μπουκάλια", " στο καράβι." },
+			{ "bottle", "ship", " μπουκάλι", " μπουκάλια", " στο καράβι." },//
 			{ "goldencoin", "sentoukiicon", " νόμισμα", " νομίσματα",
 					" στο σεντούκι." },
-			{ "hook", "boy", " γάτζο", " γάτζους", " στον Πειρατή." },
-			{ "mantili", "parrot", " μαντίλι", " μαντίλια", " στον παπαγάλο." },
+			{ "hook", "boy", " γάτζο", " γάτζους", " στον Πειρατή." },//
+			{ "mantili", "parrot", " μαντίλι", " μαντίλια", " στον παπαγάλο." },//
 			{ "banana", "monkey", " μπανάνα", " μπανάνες", " στο πιθηκάκι." },
-			{ "peanut", "parrot", " φυστίκι", " φυστίκια", " στον παπαγάλο." },
-			{ "piratehatbase", "monkey", " καπέλο", " καπέλα", " στο πιθηκάκι." },
-			{ "ship", "boy", " καράβι", " καράβια", " στον Πειρατή." },
-			{ "ic_launcher", "ship", " νησί", " νησιά", " στο καράβι." },
-			{ "gold", "sentoukiicon", " χρυσό", " χρυσά", " στο σεντούκι." }
+			{ "peanut", "parrot", " φυστίκι", " φυστίκια", " στον παπαγάλο." },//
+			{ "piratehatbase", "monkey", " καπέλο", " καπέλα", " στο πιθηκάκι." },//
+			{ "ship", "boy", " καράβι", " καράβια", " στον Πειρατή." },//
+			{ "ic_launcher", "ship", " νησί", " νησιά", " στο καράβι." },//
+			{ "gold", "sentoukiicon", " χρυσό", " χρυσά", " στο σεντούκι." }//
 	// {"baby","basket"," μωρό"," μωρά"," στο κρεβάτι."}
 	};
 
@@ -185,8 +185,8 @@ public class SplitActivity extends Activity {
 						// check all the bounds of the ball
 						if (Math.abs(X - (placement[i].x + (9 * hop))) < 20 * hop
 								&& Math.abs(Y - (placement[i].y + (9 * hop))) < 20 * hop) {
-							if (Math.abs(placement[i].x - basketplace.x) < 20 * hop
-									&& Math.abs(placement[i].y - basketplace.y) < 20 * hop) {
+							if (Math.abs(placement[i].x - basketplace.x) < 5 * hop
+									&& Math.abs(placement[i].y - basketplace.y) < 5 * hop) {
 
 								minusplacementscount--;
 								resultplacementscount++;
@@ -283,13 +283,17 @@ public class SplitActivity extends Activity {
 					(int) ((Math.random() * (placeme.x - 100)) + 51),
 					(int) ((Math.random() * (placeme.y - 100)) + 51));
 		}
+		int temprandom = new Random().nextInt(Groups.length);
+		if (temprandom >=10) {temprandom=9;}	
+		group = Groups[temprandom];
 		
-		group = Groups[new Random().nextInt(Groups.length)];
-	//	group = Groups[1];
+		//group = Groups[1];
 		drawchoice = getDrawable(this,group[0]);
 		drawchoice2 = getDrawable(this,group[1]);
+		temprandom = new Random().nextInt(backrounds.length);
+		if (temprandom >=5) {temprandom=4;}	
  		drawbackround = getDrawable(this,
-  				(backrounds[new Random().nextInt(backrounds.length)]));
+  				(backrounds[temprandom]));
 	//	drawbackround = getDrawable(this,backrounds[0]);
 		// SETVIEW
 		myView = new MyFrame(this);
@@ -375,14 +379,18 @@ public class SplitActivity extends Activity {
 				if (a<2){
 					name = group[2];
 				}else {name = group[3];}
+				if (a!=0){paint.setColor(Color.RED);}
+				
 				
 				canvas.drawText(a + name + group[4],
 						textplace.x + 10, textplace.y - 5 * (fontssize + 5),
 						paint);
+				paint.setColor(Color.WHITE);
 				canvas.drawText(placementscount + "  -  "
 						+ minusplacementscount + "  =   "
-						+ resultplacementscount, textplace.x + 10, textplace.y
+						+ askedresultplacementscount, textplace.x + 10, textplace.y
 						- 3 * (fontssize + 5), paint);
+				
 				canvas.drawText(getResources()
 						.getString(R.string.movetocheck), textplace.x + 10,
 						textplace.y - 2 * (fontssize + 5), paint);

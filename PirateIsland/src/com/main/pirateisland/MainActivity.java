@@ -1,6 +1,5 @@
 package com.main.pirateisland;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +33,7 @@ public class MainActivity extends Activity {
 
 	private Point placement[];
 	private Point maxres, hopres;
-
+	int fails = 3;
 	MyFrame myView;
 
 	// create movement
@@ -125,7 +124,6 @@ public class MainActivity extends Activity {
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		maxres = new Point(displaymetrics.widthPixels,
 				displaymetrics.heightPixels);
-		myView = new MyFrame(this);
 
 		hop = (int) displaymetrics.heightPixels / 60; //
 		hopres = new Point((int) displaymetrics.widthPixels / 60,
@@ -153,30 +151,34 @@ public class MainActivity extends Activity {
 		DataBase = new logindatabaseadapter(this);
 		DataBase = DataBase.open();
 		curuser = DataBase.getUser(curname, curpass);
-		
+
 		// temp set user
-		if (curname == "no" && curpass == "user")
-		{
-			curuser._MAXLEVEL = 2;
-		curuser._FAILSLEVEL1 = 1;
-		curuser._FAILSLEVEL2 = 3;
-		curuser._DIFFICULTY = 2;
-		DataBase.updateAll(curuser);
-		curuser = DataBase.getUser(curname, curpass);
+		if (curname == "no" && curpass == "user") {
+			curuser._MAXLEVEL = 5;
+			curuser._FAILSLEVEL1 = 0;
+			curuser._FAILSLEVEL2 = 3;
+
+			curuser._FAILSLEVEL3 = 2;
+			curuser._FAILSLEVEL4 = 3;
+
+			curuser._FAILSLEVEL5 = 1;
+
+			curuser._DIFFICULTY = 2;
+			DataBase.updateAll(curuser);
+			curuser = DataBase.getUser(curname, curpass);
 		}
-		
+
 		// fix user
 		curuser = EvaluateUser(curuser);
 
-
-		
-		//start view
+		myView = new MyFrame(this);
+		// start view
 		setContentView(myView);
 
 		// print user
-		// PrintUser(curuser);
+		//PrintUser(curuser);
 
-		//start moves
+		// start moves
 		mHandler = new Handler();
 		mHandler.post(mUpdate);
 
@@ -185,19 +187,28 @@ public class MainActivity extends Activity {
 	// draw screen
 	public class MyFrame extends View {
 
-		private Bitmap myBitmap, coinBitmap;
+		private Bitmap myBitmap, coinBitmap, starwin, starloose;
 		private Paint paint = new Paint();
 
 		public MyFrame(Context context) {
 			super(context);
-			Bitmap bitmapSource = BitmapFactory.decodeResource(getResources(),
+			starwin = BitmapFactory.decodeResource(getResources(),
+					com.main.pirateisland.R.drawable.starok);
+			starwin = Bitmap
+					.createScaledBitmap(starwin, 3 * hop, 3 * hop, true);
+			starloose = BitmapFactory.decodeResource(getResources(),
+					com.main.pirateisland.R.drawable.starfail);
+			starloose = Bitmap.createScaledBitmap(starloose, 3 * hop, 3 * hop,
+					true);
+
+			myBitmap = BitmapFactory.decodeResource(getResources(),
 					com.main.pirateisland.R.drawable.neverlandmap);
-			myBitmap = Bitmap.createScaledBitmap(bitmapSource, maxres.x,
-					maxres.y, true);
-			bitmapSource = BitmapFactory.decodeResource(getResources(),
+			myBitmap = Bitmap.createScaledBitmap(myBitmap, maxres.x, maxres.y,
+					true);
+			coinBitmap = BitmapFactory.decodeResource(getResources(),
 					com.main.pirateisland.R.drawable.goldencoin);
-			coinBitmap = Bitmap
-					.createScaledBitmap(bitmapSource, hop, hop, true);
+			coinBitmap = Bitmap.createScaledBitmap(coinBitmap, 4 * hop,
+					4 * hop, true);
 
 			// Toast.makeText(getApplicationContext(),
 			//
@@ -224,7 +235,48 @@ public class MainActivity extends Activity {
 			for (int i = 0; i < placementscount; i++) {
 
 				if (i + 1 <= curuser._MAXLEVEL) {
+					// paint fails
+
+					if (i == 0) {
+						fails = curuser._FAILSLEVEL1;
+					} else if (i == 1) {
+						fails = curuser._FAILSLEVEL2;
+					} else if (i == 2) {
+						fails = curuser._FAILSLEVEL3;
+					} else if (i == 3) {
+						fails = curuser._FAILSLEVEL4;
+					} else if (i == 4) {
+						fails = curuser._FAILSLEVEL5;
+					} else if (i == 5) {
+						fails = curuser._FAILSLEVEL6;
+					} else {
+						fails = 0;
+					}
+
+					Point star = new Point(placement[i].x + (3 * hop),
+							placement[i].y - 2 * hop);
+					if (fails <= 2) {
+						canvas.drawBitmap(starwin, star.x, star.y, null);
+					} else {
+						canvas.drawBitmap(starloose, star.x, star.y, null);
+					}
+					if (fails <= 1) {
+						canvas.drawBitmap(starwin, star.x + (3 * hop), star.y,
+								null);
+					} else {
+						canvas.drawBitmap(starloose, star.x + (3 * hop),
+								star.y, null);
+					}
+					if (fails == 0) {
+						canvas.drawBitmap(starwin, star.x + (6 * hop), star.y,
+								null);
+					} else {
+						canvas.drawBitmap(starloose, star.x + (6 * hop),
+								star.y, null);
+					}
+
 					if (i + 1 == curuser._MAXLEVEL) {
+
 						// paint triangle
 						paint.setColor(Color.GREEN);
 						paint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -294,8 +346,8 @@ public class MainActivity extends Activity {
 		case MotionEvent.ACTION_DOWN:
 			// touch down so check if the finger is on
 			for (int i = 0; i < placementscount; i++) {
-				if (Math.abs(X - placement[i].x) < 80
-						&& Math.abs(Y - placement[i].y) < 80) {
+				if (Math.abs(X - placement[i].x) < 4 * hop
+						&& Math.abs(Y - placement[i].y) < 4 * hop) {
 					// here i is touched ara i+1 pista
 					// Call the level
 					curuser._CURRENTLEVEL = i + 1;
@@ -307,9 +359,7 @@ public class MainActivity extends Activity {
 						a.putExtra("name", curuser._USERNAME);
 						a.putExtra("pass", curuser._AGE);
 						startActivity(a);
-					}
-					else
-					{
+					} else {
 						Intent a = new Intent(MainActivity.this,
 								SplitActivity.class);
 						a.putExtra("name", curuser._USERNAME);
