@@ -33,6 +33,7 @@ public class SplitActivity extends Activity {
 		return context.getResources().getIdentifier(name, "drawable",
 				context.getPackageName());
 	}
+
 	public static int getStringGroup(Context context, String name) {
 		Assert.assertNotNull(context);
 		Assert.assertNotNull(name);
@@ -41,6 +42,18 @@ public class SplitActivity extends Activity {
 				context.getPackageName());
 	}
 
+	public static int[] addInt(int[] series, int newInt) {
+		// create a new array with extra index
+		int[] newSeries = new int[series.length + 1];
+
+		// copy the integers from series to newSeries
+		for (int i = 0; i < series.length; i++) {
+			newSeries[i] = series[i];
+		}
+		// add the new integer to the last index
+		newSeries[newSeries.length - 1] = newInt;
+		return newSeries;
+	}
 
 	// ----- activity params ------
 	// sensor describe
@@ -65,34 +78,18 @@ public class SplitActivity extends Activity {
 	String[] backrounds = { "backround1", "backround2", "backround3",
 			"backround4", "backround5" };
 
-	String[][] Groups = {
-			{ "bottle", "ship", " μπουκάλι", " μπουκάλια", " στο καράβι." },//
-			{ "goldencoin", "sentoukiicon", " νόμισμα", " νομίσματα",
-					" στο σεντούκι." },
-			{ "hook", "boy", " γάτζο", " γάτζους", " στον Πειρατή." },//
-			{ "mantili", "parrot", " μαντίλι", " μαντίλια", " στον παπαγάλο." },//
-			{ "banana", "monkey", " μπανάνα", " μπανάνες", " στο πιθηκάκι." },
-			{ "peanut", "parrot", " φυστίκι", " φυστίκια", " στον παπαγάλο." },//
-			{ "piratehatbase", "monkey", " καπέλο", " καπέλα", " στο πιθηκάκι." },//
-			{ "ship", "boy", " καράβι", " καράβια", " στον Πειρατή." },//
-			{ "ic_launcher", "ship", " νησί", " νησιά", " στο καράβι." },//
-			{ "gold", "sentoukiicon", " χρυσό", " χρυσά", " στο σεντούκι." }//
-	// {"baby","basket"," μωρό"," μωρά"," στο κρεβάτι."}
-	};
-	String[] spltthemes = {
-			"splttheme1","splttheme2","splttheme3","splttheme4","splttheme5",
-			"splttheme6","splttheme7","splttheme8","splttheme9","splttheme10"
-	};
+	String[] spltthemes = { "splttheme1", "splttheme2", "splttheme3",
+			"splttheme4", "splttheme5", "splttheme6", "splttheme7",
+			"splttheme8", "splttheme9", "splttheme10" };
 	MyFrame myView;
 
+	int[] decates = new int[0];
+
 	public SplitActivity() {
-		placementscount = (int) ((Math.random() * 10) + 1);
+		placementscount = 50;
 		askedresultplacementscount = (int) ((Math.random() * placementscount));
-//if (placementscount == askedresultplacementscount) {askedresultplacementscount--;}
 		resultplacementscount = placementscount;
 		placement = new Point[placementscount];
-
-
 	}
 
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
@@ -133,7 +130,8 @@ public class SplitActivity extends Activity {
 		if (placementscount == askedresultplacementscount) {
 			gamestate = 1;
 		} else {
-			Toast.makeText(getApplicationContext(),this.getResources().getString(  R.string.resumeplease),
+			Toast.makeText(getApplicationContext(),
+					this.getResources().getString(R.string.resumeplease),
 					Toast.LENGTH_LONG).show();
 		}
 	}
@@ -196,8 +194,8 @@ public class SplitActivity extends Activity {
 						// check all the bounds of the ball
 						if (Math.abs(X - (placement[i].x + (9 * hop))) < 20 * hop
 								&& Math.abs(Y - (placement[i].y + (9 * hop))) < 20 * hop) {
-							if (Math.abs(placement[i].x - basketplace.x) < 5 * hop
-									&& Math.abs(placement[i].y - basketplace.y) < 5 * hop) {
+							if (Math.abs(placement[i].x - basketplace.x) < 1 * hop
+									&& Math.abs(placement[i].y - basketplace.y) < 1 * hop) {
 
 								minusplacementscount--;
 								resultplacementscount++;
@@ -227,9 +225,9 @@ public class SplitActivity extends Activity {
 		case MotionEvent.ACTION_UP:
 			// touch drop - just do things here after dropping
 			if (balID != -1) {
-				if (Math.abs((basketplace.x + (4*hop)) - placement[balID].x ) < 20 * hop
-						&& Math.abs((basketplace.y + (4*hop))
-								- placement[balID].y ) < 20 * hop) {
+				if (Math.abs((basketplace.x + (4 * hop)) - placement[balID].x) < 10 * hop
+						&& Math.abs((basketplace.y + (4 * hop))
+								- placement[balID].y) < 10 * hop) {
 					placement[balID] = new Point(basketplace.x, basketplace.y);
 					minusplacementscount++;
 					resultplacementscount--;
@@ -276,7 +274,7 @@ public class SplitActivity extends Activity {
 			placeme = new Point(maxres.x, halfres.y);
 			textplace = new Point(0, maxres.y);
 			hop = (int) ((double) halfres.x / 60);
-			basketplace = new Point(halfres.x + (15 * hop), halfres.y);
+			basketplace = new Point(halfres.x + (18 * hop), halfres.y);
 		} else {
 			placeme = new Point(halfres.x, maxres.y);
 
@@ -294,20 +292,22 @@ public class SplitActivity extends Activity {
 					(int) ((Math.random() * (placeme.x - 100)) + 51),
 					(int) ((Math.random() * (placeme.y - 100)) + 51));
 		}
-		int temprandom = new Random().nextInt(Groups.length);
-		if (temprandom >=10) {temprandom=9;}	
+		int temprandom = new Random().nextInt(spltthemes.length);
+		if (temprandom >= 10) {
+			temprandom = 9;
+		}
 
-		int g = getStringGroup(this,spltthemes[temprandom]);	
-		String gs[] = this.getResources().getStringArray( g);	
-		group= gs;
+		int g = getStringGroup(this, spltthemes[temprandom]);
+		String gs[] = this.getResources().getStringArray(g);
+		group = gs;
 
-		
-		drawchoice = getDrawable(this,group[0]);
-		drawchoice2 = getDrawable(this,group[1]);
+		drawchoice = getDrawable(this, group[0]);
+		drawchoice2 = getDrawable(this, group[1]);
 		temprandom = new Random().nextInt(backrounds.length);
-		if (temprandom >=5) {temprandom=4;}	
- 		drawbackround = getDrawable(this,
-  				(backrounds[temprandom]));
+		if (temprandom >= 5) {
+			temprandom = 4;
+		}
+		drawbackround = getDrawable(this, (backrounds[temprandom]));
 		// SETVIEW
 		myView = new MyFrame(this);
 		setContentView(myView);
@@ -341,8 +341,6 @@ public class SplitActivity extends Activity {
 					drawbackround);
 			backround = Bitmap.createScaledBitmap(backround, maxres.x,
 					maxres.y, true);
-
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override
@@ -360,7 +358,7 @@ public class SplitActivity extends Activity {
 				paint.setColor(Color.MAGENTA);
 				canvas.drawText(mess, 10, halfres.y - 1 * (fontssize + 5),
 						paint);
-							paint.setColor(Color.YELLOW);
+				paint.setColor(Color.YELLOW);
 				canvas.drawText(mess, 10, halfres.y + 2 * (fontssize + 5),
 						paint);
 				paint.setColor(Color.BLUE);
@@ -375,42 +373,66 @@ public class SplitActivity extends Activity {
 				gamestate = 2;
 
 			} else {
+				paint.setColor(Color.WHITE);
+				paint.setTextSize(fontssize);
 				canvas.drawBitmap(backround, 1, 1, null);
 				canvas.drawBitmap(basketBitmap, basketplace.x, basketplace.y,
 						null);
+				int ypol = 10;
+				if (ypol == 0) {
+					ypol = 10;
+				}
+				paint.setColor(Color.BLACK);
+				paint.setTextSize(2*fontssize);
 				for (int i = 0; i < placementscount; i++) {
-					canvas.drawBitmap(myBitmap, placement[i].x, placement[i].y,
-							null);
+					if (i <= ypol) {
+						canvas.drawBitmap(myBitmap, placement[i].x,
+								placement[i].y, null);
+					} else {
+
+						canvas.drawBitmap(myBitmap, placement[i].x,
+								placement[i].y, null);
+						canvas.drawText(String.valueOf(10), placement[i].x
+								+ (2 * hop), placement[i].y + (8 * hop), paint);
+						i = i + 10;
+						decates = addInt(decates, i);
+		
+					}
 				}
 				paint.setColor(Color.WHITE);
 				paint.setTextSize(fontssize);
+
 				int a = (placementscount - askedresultplacementscount);
 				canvas.drawText(getResources()
 						.getString(R.string.moveitmessage), textplace.x + 10,
 						textplace.y - 6 * (fontssize + 5), paint);
 				String name;
-				if (a<2){
+				if (a < 2) {
 					name = group[2];
-				}else {name = group[3];}
-				if (a!=0){paint.setColor(Color.RED);}
-				
-				
-				canvas.drawText(a + name + group[4],
-						textplace.x + 10, textplace.y - 5 * (fontssize + 5),
-						paint);
-				paint.setColor(Color.WHITE);
+				} else {
+					name = group[3];
+				}
+
+				canvas.drawText(a +" "+ name + " "+ group[4], textplace.x + 10,
+						textplace.y - 5 * (fontssize + 5), paint);
+				if (a != 0) {
+					paint.setColor(Color.RED);
+				}
+				// basketplace.x, basketplace.y
 				canvas.drawText(placementscount + "  -  "
 						+ minusplacementscount + "  =   "
-						+ askedresultplacementscount, textplace.x + 10, textplace.y
-						- 3 * (fontssize + 5), paint);
-				
-				canvas.drawText(getResources()
-						.getString(R.string.movetocheck), textplace.x + 10,
-						textplace.y - 2 * (fontssize + 5), paint);
+						+ askedresultplacementscount, textplace.x + 10,
+						textplace.y - 3 * (fontssize + 5), paint);
+				paint.setColor(Color.WHITE);
+				canvas.drawText(String.valueOf(minusplacementscount),
+						basketplace.x + 5, basketplace.y + fontssize + 5, paint);
+				canvas.drawText(getResources().getString(R.string.movetocheck),
+						textplace.x + 10, textplace.y - 2 * (fontssize + 5),
+						paint);
 				paint.setColor(Color.RED);
-				canvas.drawText(getResources()
-						.getString(R.string.hittocheck), textplace.x + 10,
-						textplace.y - 1 * (fontssize + 5), paint);
+				canvas.drawText(getResources().getString(R.string.hittocheck),
+						textplace.x + 10, textplace.y - 1 * (fontssize + 5),
+						paint);
 			}
 		}
 	}
