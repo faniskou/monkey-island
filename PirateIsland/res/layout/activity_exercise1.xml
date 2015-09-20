@@ -14,12 +14,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
         android:layout_toRightOf="@+id/textView1"
+        android:layout_marginRight="15dp"
         android:text="+"
-        android:textSize="35dp"
-        android:layout_marginRight="10dip" />
+        android:textSize="50dp"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -29,7 +28,7 @@
         android:layout_alignBottom="@+id/textView4"
         android:layout_toRightOf="@+id/textView4"
         android:text="Β"
-        android:textSize="35dp" />
+        android:textSize="50dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -39,7 +38,7 @@
         android:layout_alignBottom="@+id/textView3"
         android:layout_marginLeft="34dp"
         android:layout_toRightOf="@+id/textView3"
-        android:textSize="35dp" 
+        android:textSize="50dp" 
         android:layout_marginRight="10dip"
         android:text="="/>
 
@@ -121,7 +120,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
         android:text="A"
-        android:textSize="35dp" />
+        android:textSize="50dp" />
 
 </RelativeLayout>
