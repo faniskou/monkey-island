@@ -143,11 +143,11 @@ public class LoginScreen extends Activity {
 	}
 	
 	public  void StartPlayer(){
-		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song1);
+		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song2);
 
 
 		            // TODO Auto-generated method stub
-		            mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.song1);
+		            mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.song2);
 		            mPlayer.start();//Start playing the music
 
 		}
