@@ -1,10 +1,7 @@
 package com.main.pirateisland;
 
-import java.util.Arrays;
 import java.util.Random;
-
 import junit.framework.Assert;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -60,7 +57,7 @@ public class SplitActivity extends Activity {
 		if (helpused < 3) {
 			helpused = helpused + 1;
 		}
-		initgame() ;
+		initgame();
 		initplaces();
 	}
 
@@ -96,24 +93,92 @@ public class SplitActivity extends Activity {
 
 	}
 
-	private void initplaces()
-	{
-		//if help
-		for (int i = 0; i < placecount; i++) {
-			if (i < monadescount) {
-				placement[i] = new Place(
-						(int) ((Math.random() * (placeme.x - 100)) + 51),
-						(int) ((Math.random() * (placeme.y - 100)) + 51), 1,false);
-			} else {
-				placement[i] = new Place(
-						(int) ((Math.random() * (placeme.x - 100)) + 51),
-						(int) ((Math.random() * (placeme.y - 100)) + 51), 10,false);
+	private void initplaces() {
+		// if help
+		if (helpused < 1) {
+			for (int i = 0; i < placecount; i++) {
+				if (i < monadescount) {
+					placement[i] = new Place(
+							(int) ((Math.random() * (placeme.x - 100)) + 51),
+							(int) ((Math.random() * (placeme.y - 100)) + 51),
+							1, false);
+				} else {
+					placement[i] = new Place(
+							(int) ((Math.random() * (placeme.x - 100)) + 51),
+							(int) ((Math.random() * (placeme.y - 100)) + 51),
+							10, false);
+				}
 			}
+		} else if (helpused >= 1) {
+			int dekades = (int) ((placementscount - askedresultplacementscount) / 10);
+			if (monadescount >= ((placementscount - askedresultplacementscount) % 10) + 10
+					&& 10 <= placementscount - askedresultplacementscount) {
+				dekades--;
+			}
+			for (int i = 0; i < placecount; i++) {
+				if (i < monadescount) {
+					if ((i < ((placementscount - askedresultplacementscount) % 10))
+							|| (i < ((placementscount - askedresultplacementscount) % 10) + 10
+									&& monadescount >= ((placementscount - askedresultplacementscount) % 10) + 10 && 10 <= placementscount
+									- askedresultplacementscount)) {
+						if (helpused >= 2) {
+							placement[i] = new Place(
+									(int) ((Math.random() * (placeme.x - 100 )) + 51),
+									(int) ((Math.random() * (placeme.y - 100 - ((int)placeme.y/2))) + ((int)placeme.y/2) + 51),
+									1, true);
+						} else {
+							placement[i] = new Place(
+									(int) ((Math.random() * (placeme.x - 100)) + 51),
+									(int) ((Math.random() * (placeme.y - 100)) + 51),
+									1, true);
+						}
+					} else {
+						if (helpused >= 2) {
+						placement[i] = new Place(
+								(int) ((Math.random() * (placeme.x - 100)) + 51),
+								(int) ((Math.random() * (placeme.y - 100) - ((int)placeme.y/2)) + 51),
+								1, false);
+						} else {
+							placement[i] = new Place(
+									(int) ((Math.random() * (placeme.x - 100)) + 51),
+									(int) ((Math.random() * (placeme.y - 100)) + 51),
+									1, false);
+						}
+					}
+				} else {
+					if (dekades > 0) {
+						if (helpused >= 2) {
+						placement[i] = new Place(
+								(int) ((Math.random() * (placeme.x - 100)) + 51),
+								(int) ((Math.random() * (placeme.y - 100 - ((int)placeme.y/2)))+ ((int)placeme.y/2) + 51),
+								10, true);
+						} else {
+							placement[i] = new Place(
+									(int) ((Math.random() * (placeme.x - 100)) + 51),
+									(int) ((Math.random() * (placeme.y - 100)) + 51),
+									10, true);
+						}
+						dekades--;
+					} else {
+						if (helpused >= 2) {
+						placement[i] = new Place(
+								(int) ((Math.random() * (placeme.x - 100)) + 51),
+								(int) ((Math.random() * (placeme.y - 100 - ((int)placeme.y/2) )) + 51),
+								10, false);
+						} else {
+							placement[i] = new Place(
+									(int) ((Math.random() * (placeme.x - 100)) + 51),
+									(int) ((Math.random() * (placeme.y - 100)) + 51),
+									10, false);
+						}
+
+					}
+				}
+			}
+
 		}
-		
 	}
-	
-	
+
 	// ----- activity params ------
 	// sensor describe
 	private SensorManager mSensorManager;
@@ -132,10 +197,10 @@ public class SplitActivity extends Activity {
 		int price;
 		boolean solution;
 
-		public Place(int x, int y, int p,boolean s) {
+		public Place(int x, int y, int p, boolean s) {
 			pos = new Point(x, y);
 			price = p;
-			solution =s;
+			solution = s;
 
 		}
 	}
@@ -258,7 +323,6 @@ public class SplitActivity extends Activity {
 		}
 		initplaces();
 
-
 		int temprandom = new Random().nextInt(spltthemes.length);
 		if (temprandom >= 10) {
 			temprandom = 9;
@@ -351,23 +415,41 @@ public class SplitActivity extends Activity {
 				paint.setColor(Color.WHITE);
 				paint.setTextSize(fontssize);
 				canvas.drawBitmap(backround, 1, 1, null);
-				canvas.drawBitmap(basketBitmap, basketplace.x, basketplace.y,
-						null);
+
 				canvas.drawBitmap(helpbtmp, helpplace.x, helpplace.y, null);
 				canvas.drawBitmap(backbtmp, backplace.x, backplace.y, null);
-				paint.setColor(Color.BLACK);
 				paint.setTextSize(2 * fontssize);
-
+				paint.setColor(Color.RED);
+				paint.setStyle(Paint.Style.STROKE);
+				paint.setStrokeWidth(hop);
+				canvas.drawBitmap(basketBitmap, basketplace.x, basketplace.y,
+						null);
+				if (helpused >= 1) {
+					canvas.drawCircle(basketplace.x + (13 * hop), basketplace.y
+							+ (13 * hop), 13 * hop, paint);
+				}
 				for (int i = 0; i < placecount; i++) {
+					if (placement[i].solution && helpused >= 1) {
+						canvas.drawCircle(placement[i].pos.x + (9 * hop),
+								placement[i].pos.y + (9 * hop), 9 * hop, paint);
+					}
+					if (placement[i].solution && helpused >= 3) {
+						canvas.drawLine(placement[i].pos.x + (9 * hop),
+								placement[i].pos.y + (9 * hop), basketplace.x
+										+ (13 * hop), basketplace.y
+										+ (13 * hop), paint);
+					}
 					canvas.drawBitmap(myBitmap, placement[i].pos.x,
 							placement[i].pos.y, null);
 					if (placement[i].price > 1) {
+						paint.setColor(Color.BLACK);
 						canvas.drawText(String.valueOf(placement[i].price),
 								placement[i].pos.x + 3 * hop,
 								placement[i].pos.y + 8 * hop, paint);
 					}
-
 				}
+				paint.setStyle(Paint.Style.FILL_AND_STROKE);
+				paint.setStrokeWidth(((int) hop / 3) + 1);
 				paint.setColor(Color.WHITE);
 				paint.setTextSize(fontssize);
 
@@ -507,7 +589,8 @@ public class SplitActivity extends Activity {
 			if (balID != -1) {
 				if (Math.abs(X - (placement[balID].pos.x + (9 * hop))) < 20 * hop
 						&& Math.abs(Y - (placement[balID].pos.y + (9 * hop))) < 20 * hop) {
-					placement[balID] = new Place(X, Y, placement[balID].price, placement[balID].solution);
+					placement[balID] = new Place(X, Y, placement[balID].price,
+							placement[balID].solution);
 					myView.invalidate();
 				}
 			}
