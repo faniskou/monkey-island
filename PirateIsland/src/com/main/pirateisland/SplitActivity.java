@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -71,8 +72,8 @@ public class SplitActivity extends Activity {
 			placementscount = 1;
 		}
 		askedresultplacementscount = new Random().nextInt(placementscount);
-		if (askedresultplacementscount <= 0) {
-			askedresultplacementscount = 1;
+		if (placementscount - askedresultplacementscount <= 0) {
+			placementscount++;
 		}
 		resultplacementscount = placementscount;
 		if (placementscount < 10) {
@@ -327,7 +328,7 @@ public class SplitActivity extends Activity {
 		if (temprandom >= 10) {
 			temprandom = 9;
 		}
-
+		Log.v("fanis", "current theme :" + String.valueOf(temprandom));
 		int g = getStringGroup(this, spltthemes[temprandom]);
 		String gs[] = this.getResources().getStringArray(g);
 		group = gs;
@@ -338,6 +339,8 @@ public class SplitActivity extends Activity {
 		if (temprandom >= 5) {
 			temprandom = 4;
 		}
+		
+		Log.v("fanis", "current backround :" + String.valueOf(temprandom));
 		drawbackround = getDrawable(this, (backrounds[temprandom]));
 		// SETVIEW
 		myView = new MyFrame(this);

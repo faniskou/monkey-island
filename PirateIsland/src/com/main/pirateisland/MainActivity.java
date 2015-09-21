@@ -136,33 +136,38 @@ public class MainActivity extends Activity {
 		placement[3] = new Point(hopres.x * 40, hopres.y * 40);
 		placement[4] = new Point(hopres.x * 30, hopres.y * 20);
 		placement[5] = new Point(hopres.x * 23, hopres.y * 15);
-
+		
+		// get Instance of Database Adapter
+		DataBase = new logindatabaseadapter(this);
+		DataBase = DataBase.open();
+		
 		// get user
 		Intent i = getIntent();
 		String curname = i.getStringExtra("name");
 		String curpass = i.getStringExtra("pass");
+		//demo if no user
 		if (curname == null || curpass == null) {
 			curname = "no";
 			curpass = "user";
+			curuser = DataBase.getUser(curname, curpass);
+			if (curuser._USERNAME != "no")
+			{	DataBase.insertEntry(curname, curpass);}
 		}
 
-		// get Instance of Database Adapter
-
-		DataBase = new logindatabaseadapter(this);
-		DataBase = DataBase.open();
+        //get user
 		curuser = DataBase.getUser(curname, curpass);
 
-		// temp set user
+		//demo if no user
 		if (curname == "no" && curpass == "user") {
-			curuser._MAXLEVEL = 5;
-			curuser._FAILSLEVEL1 = 0;
+			curuser._MAXLEVEL = 4;
+			curuser._FAILSLEVEL1 = 3;
 			curuser._FAILSLEVEL2 = 3;
 
 			curuser._FAILSLEVEL3 = 2;
 			curuser._FAILSLEVEL4 = 3;
 
 			curuser._FAILSLEVEL5 = 1;
-
+			curuser._FAILSLEVEL6 = 1;
 			curuser._DIFFICULTY = 2;
 			DataBase.updateAll(curuser);
 			curuser = DataBase.getUser(curname, curpass);
@@ -345,7 +350,7 @@ public class MainActivity extends Activity {
 
 		case MotionEvent.ACTION_DOWN:
 			// touch down so check if the finger is on
-			for (int i = 0; i < placementscount; i++) {
+			for (int i = 0; i < placementscount && i < curuser._MAXLEVEL ; i++) {
 				if (Math.abs(X - placement[i].x) < 4 * hop
 						&& Math.abs(Y - placement[i].y) < 4 * hop) {
 					// here i is touched ara i+1 pista
