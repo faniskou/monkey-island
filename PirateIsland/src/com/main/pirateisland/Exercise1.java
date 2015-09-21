@@ -75,32 +75,24 @@ public class Exercise1 extends Activity {
 	    		
 	    		int answer = Integer.parseInt(editText1.getText().toString());
 	    		
-	     
-	    		//if (answer == result){
-			    	 
-			    	// TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 //textView6.setText("Σωστά!");
-			     //}
-	    		
-	    		
-	    		
-	    		
-                if (errorflag == 3){
+	    		if (errorflag == 3){
 	    			
 	    			if (answer == result){
 				    	 
-				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Σωστά!!!!");	
-				    	 
-				    	// loginDataBaseAdapter.updateEX(errorflag);
+				    	// TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 //textView6.setText("Σωστά!!!!");	
+				    	 // loginDataBaseAdapter.updateEX(errorflag);
 						// Toast.makeText(getApplicationContext(), "Success ", Toast.LENGTH_LONG).show();
-
+	    				Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+		    			toast.show();
 				    	 
 				    	 
 	    			}
 	    			else {
-	                     TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Για σκέψου το καλύτερα!");
+	                    // TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 //textView6.setText("Για σκέψου το καλύτερα!");
+	    				Toast toast = Toast.makeText(getApplicationContext(), "Για σκέψου το καλύτερα!", Toast.LENGTH_SHORT);
+		    			toast.show();
 	    			}
 	    			
 	    			
@@ -109,10 +101,10 @@ public class Exercise1 extends Activity {
 	    		if (errorflag == 2){
 	    			
 	    			if (answer == result){
-				    	 
-				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Σωστά!!!!");	
-				    	 
+	    				//TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 //textView6.setText("Σωστά!!!!");	
+	    				Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+		    			toast.show();
 	    			}
 	    			else {
 	    				TextView textView7 = (TextView) findViewById(R.id.textView7);
@@ -127,8 +119,10 @@ public class Exercise1 extends Activity {
 	    				TextView textView10 = (TextView) findViewById(R.id.textView10);
 	    				textView10.setTextColor(Color.parseColor("#FFFFFF"));
 	    				
-	    				TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Για σκέψου το καλύτερα!");
+	    				//TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	// textView6.setText("Για σκέψου το καλύτερα!");
+	    				Toast toast = Toast.makeText(getApplicationContext(), "Για σκέψου το καλύτερα!", Toast.LENGTH_SHORT);
+		    			toast.show();
 				    	 errorflag = 3;
 	    			}
 	    			
@@ -139,17 +133,19 @@ public class Exercise1 extends Activity {
 	    		if (errorflag == 1) {
 	    			
 	    			if (answer == result){
-				    	 
-				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Σωστά!!!!");
+				    	 //TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 //textView6.setText("Σωστά!!!!");
+	    				 Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+			    			toast.show();
 				    	 }
 	    			
 	    			else {
-	    			 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λάθος. Επέλεξε έναν από τους 4 αριθμούς");
-		           
-			    	 
-			    	 //int A = result - 3;
+	    				 Toast toast = Toast.makeText(getApplicationContext(), "Λάθος. Επέλεξε έναν από τους 4 αριθμούς", Toast.LENGTH_SHORT);
+			    			toast.show();
+	    				
+	    			// TextView textView6 = (TextView) findViewById(R.id.textView6);
+			    	 //textView6.setText("Λάθος. Επέλεξε έναν από τους 4 αριθμούς");
+		           //int A = result - 3;
 			         //int B = result - 1;
 			    	 //int C = result + 1;
 			    
@@ -180,23 +176,30 @@ public class Exercise1 extends Activity {
 	    			
 	    			
 	    		if (answer == result){
-				    	 
-				    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-				    	 textView6.setText("Σωστά!");
+	    			
+	    		    Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+	    			toast.show();
+
+				    	 //TextView textView6 = (TextView) findViewById(R.id.textView6);
+				    	 //textView6.setText("Σωστά!");
 	    		}
 			     
 	             if (answer > result){
 			    	 
-			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.");
+			    	 //TextView textView6 = (TextView) findViewById(R.id.textView6);
+			    	 //textView6.setText("Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.");
+	            	 Toast toast = Toast.makeText(getApplicationContext(), "Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.", Toast.LENGTH_SHORT);
+		    			toast.show();
 			    	 errorflag = 1;
 			     }
 	             
 	             if (answer < result){
 			    	 
-			    	 TextView textView6 = (TextView) findViewById(R.id.textView6);
-			    	 textView6.setText("Λάθος, δοκίμασε ένα ποιό μεγάλο νούμερο.");
-			    	 errorflag = 1;
+			    	 //TextView textView6 = (TextView) findViewById(R.id.textView6);
+			    	 //textView6.setText("Λάθος, δοκίμασε ένα ποιό μεγάλο νούμερο.");
+	            	 Toast toast = Toast.makeText(getApplicationContext(), "Λαθος, δοκίμασε ένα ποιό μεγάλο νούμερο.", Toast.LENGTH_SHORT);
+		    			toast.show();
+	            	 errorflag = 1;
 			    	 
 			     }
 	    		}
