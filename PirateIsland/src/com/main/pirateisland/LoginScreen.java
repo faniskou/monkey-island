@@ -22,8 +22,9 @@ public class LoginScreen extends Activity {
 	Button btnCreateAccount,btnSignIn;
 	private MediaPlayer mp;
 	public MediaPlayer mPlayer;
-	
 	logindatabaseadapter loginDataBaseAdapter;
+	GPS gps;
+	Button btnShowLocation;
 	@SuppressLint("CutPasteId")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,27 @@ public class LoginScreen extends Activity {
 			}
 		
 		});
+		
+		btnShowLocation = (Button) findViewById(R.id.show_location);	
+		btnShowLocation.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				
+				gps= new GPS(LoginScreen.this);
+				
+				//if (gps.canGetLocation()){
+					double latitude = gps.getLatitude();
+					double longitude = gps.getLongitude();
+					
+					Toast.makeText(getApplicationContext(), "Eisai edo -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
+			//	} 
+			//else{
+				//	gps.showsettingsAlert();
+				//}
+			}
+		
+		});
+		
 		
 	}
 	private void login (View v){
