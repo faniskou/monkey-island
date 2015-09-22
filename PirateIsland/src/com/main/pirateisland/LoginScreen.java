@@ -1,19 +1,22 @@
 package com.main.pirateisland;
-import java.sql.*;
-//import javax.swing.*;
-
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+//import javax.swing.*;
 
 
 public class LoginScreen extends Activity {
@@ -24,7 +27,9 @@ public class LoginScreen extends Activity {
 	public MediaPlayer mPlayer;
 	logindatabaseadapter loginDataBaseAdapter;
 	GPS gps;
+	String cityName = null;
 	Button btnShowLocation;
+	
 	@SuppressLint("CutPasteId")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +114,27 @@ public class LoginScreen extends Activity {
 				gps= new GPS(LoginScreen.this);
 				
 				//if (gps.canGetLocation()){
+				    
 					double latitude = gps.getLatitude();
 					double longitude = gps.getLongitude();
+					Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
 					
-					Toast.makeText(getApplicationContext(), "Eisai edo -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
+					List<Address> addresses;
+					try {
+						addresses = gcd.getFromLocation(latitude, longitude, 1);
+						
+						 if (addresses.size() > 0)
+				                System.out.println(addresses.get(0).getLocality());
+				            cityName = addresses.get(0).getLocality();
+				            Toast.makeText(getApplicationContext(), "Eisai edo: " + cityName + " -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//if (addresses.size() > 0) 
+					   // System.out.println(addresses.get(0).getLocality());
+					
+					//Toast.makeText(getApplicationContext(), "Eisai edo -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
 			//	} 
 			//else{
 				//	gps.showsettingsAlert();
