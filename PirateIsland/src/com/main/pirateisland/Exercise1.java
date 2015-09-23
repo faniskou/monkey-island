@@ -1,11 +1,8 @@
 package com.main.pirateisland;
 
 //import android.support.v7.app.ActionBarActivity;
-import com.main.pirateisland.SplitActivity.MyFrame;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,8 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.main.pirateisland.SplitActivity.MyFrame;
 
 
 public class Exercise1 extends Activity {
@@ -34,6 +34,7 @@ public class Exercise1 extends Activity {
 	
 	logindatabaseadapter loginDataBaseAdapter;
 	
+	ImageButton imageButton1, imageButton2;
 	
 	private SensorManager mSensorManager;
 	private float mAccel; // acceleration apart from gravity
@@ -110,8 +111,8 @@ public class Exercise1 extends Activity {
 	     textView3.setText(String.valueOf(random2));
     	 
 	   
-	     Button button2 = (Button) findViewById(R.id.button2);
-	     button2.setOnClickListener(new OnClickListener() {
+	      imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
+	      imageButton1.setOnClickListener(new OnClickListener() {
 			
 	    	@Override
 			public void onClick(View v) {
