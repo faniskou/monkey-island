@@ -1,9 +1,16 @@
 package com.main.pirateisland;
 
 //import android.support.v7.app.ActionBarActivity;
+import com.main.pirateisland.SplitActivity.MyFrame;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -12,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class Exercise1 extends Activity {
 	
@@ -27,12 +35,73 @@ public class Exercise1 extends Activity {
 	logindatabaseadapter loginDataBaseAdapter;
 	
 	
+	private SensorManager mSensorManager;
+	private float mAccel; // acceleration apart from gravity
+	private float mAccelCurrent; // current acceleration including gravity
+	private float mAccelLast; // last acceleration including gravity
+	
+	MyFrame myView;
+	
+	private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+		public void onSensorChanged(SensorEvent se) {
+			
+			//EditText editText1 = (EditText) findViewById(R.id.editText1);
+    		//int answer = Integer.parseInt(editText1.getText().toString());
+			
+			float x = se.values[0];
+			float y = se.values[1];
+			float z = se.values[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+			if (mAccel > 11) {
+				//check0(answer);
+				//myView.invalidate();
+				
+                EditText editText1 = (EditText) findViewById(R.id.editText1);
+	    		int answer = Integer.parseInt(editText1.getText().toString());
+				
+	    		if (errorflag == 3){
+	    			check3(answer);
+	    		}
+	    		if (errorflag == 2){
+	    			check2(answer);
+	    		}
+	    		if (errorflag == 1) {
+	    			check1(answer);
+			    }
+	    		if (errorflag == 0) {
+	    			check0(answer);	 
+	    			}
+				
+				
+			}
+		}
+
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		}
+	};
+	
+	
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise1);
 		
 		//to Onoma tou xristi einai stin "name"
+		
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	    mAccel = 0.00f;
+	    mAccelCurrent = SensorManager.GRAVITY_EARTH;
+	    mAccelLast = SensorManager.GRAVITY_EARTH;
+		
+		
 	
          TextView textView1 = (TextView) findViewById(R.id.textView1);
 	     textView1.setText(String.valueOf(random1)); 
@@ -62,7 +131,8 @@ public class Exercise1 extends Activity {
 	    			check1(answer);
 			    }
 	    		if (errorflag == 0) {
-	    			check0(answer);	    		}
+	    			check0(answer);	 
+	    			}
 			    }
 		}); 	
 	}
@@ -154,10 +224,31 @@ public class Exercise1 extends Activity {
 	
 	
 	@Override
+	protected void onResume() {
+		super.onResume();
+		mSensorManager.registerListener(mSensorListener,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL);
+	}
+	
+
+	
+	@Override
+	protected void onPause() {
+		mSensorManager.unregisterListener(mSensorListener);
+		super.onPause();
+	}
+	
+	
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.exercise1, menu);
 		return true;
 	}
+	
+	
+	
 
 }
