@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 //import javax.swing.*;
 
@@ -29,26 +30,13 @@ public class LoginScreen extends Activity {
 	GPS gps;
 	String cityName = null;
 	Button btnShowLocation;
+	ImageButton imageButton1, imageButton2, imageButton3;
 	
 	@SuppressLint("CutPasteId")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_screen);
-		
-		//Media Player
-		//to mp3 einai ston fakelo res/raw
-		//sto telos tou arxeiou exo OnDestroy na stamata otan kleinei
-		
-		//int resId = R.raw.song1;
-		
-		
-		//if (mp != null) {
-		  //   mp.release();
-		 // }
-		
-		//MediaPlayer mp=MediaPlayer.create(this, resId);
-		//mp.start();
 		
 		StartPlayer();
 		
@@ -106,8 +94,8 @@ public class LoginScreen extends Activity {
 		
 		});
 		
-		btnShowLocation = (Button) findViewById(R.id.show_location);	
-		btnShowLocation.setOnClickListener(new View.OnClickListener() {
+		imageButton1 = (ImageButton) findViewById(R.id.imageButton1);	
+		imageButton1.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				
@@ -126,7 +114,7 @@ public class LoginScreen extends Activity {
 						 if (addresses.size() > 0)
 				                System.out.println(addresses.get(0).getLocality());
 				            cityName = addresses.get(0).getLocality();
-				            Toast.makeText(getApplicationContext(), "Eisai edo: " + cityName + " -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
+				            Toast.makeText(getApplicationContext(), "Ταξιδεύεις από " + cityName + " με προορισμό το Νησί των Πειρατών!", Toast.LENGTH_LONG).show();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -142,6 +130,55 @@ public class LoginScreen extends Activity {
 			}
 		
 		});
+		
+		
+		imageButton2 = (ImageButton) findViewById(R.id.imageButton2);	
+		imageButton2.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// get The User name and Password
+				login(v);
+			}
+		
+		});
+		
+		imageButton3 = (ImageButton) findViewById(R.id.imageButton3);	
+		imageButton3.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				
+				String userName=editTextUserName.getText().toString();
+				String password=editTextPassword.getText().toString();
+				String confirmPassword=editTextConfirmPassword.getText().toString();
+	 
+				// check if any of the fields are vaccant
+				if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
+				{
+						Toast.makeText(getApplicationContext(), "Field Vaccant", Toast.LENGTH_LONG).show();
+						return;
+				}
+				// check if both password matches
+				if(!password.equals(confirmPassword))
+				{
+					Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else
+				{
+				    // Save the Data in Database
+				    loginDataBaseAdapter.insertEntry(userName, password);
+				    Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+				    login(v);
+				}
+				
+				
+				
+				
+			}
+		
+		});
+		
+		
 		
 		
 	}
