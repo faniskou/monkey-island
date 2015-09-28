@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -45,6 +44,7 @@ public class Exercise1 extends Activity {
 	MyFrame myView;
 	
 	private logindatabaseadapter DataBase;
+	@SuppressWarnings("unused")
 	private User curuser;
 	
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
@@ -73,7 +73,7 @@ public class Exercise1 extends Activity {
 	    		if (answercheck.matches("")) {
 	    			
 	    			
-	    			Toast toast = Toast.makeText(getApplicationContext(), "Δώσε μας την απάντηση σου :(", Toast.LENGTH_SHORT);
+	    			Toast toast = Toast.makeText(getApplicationContext(), R.string.giveanswer, Toast.LENGTH_SHORT);
 	    			toast.show();
 	    		}
 	    		else{
@@ -154,7 +154,7 @@ public class Exercise1 extends Activity {
 	    		if (answercheck.matches("")) {
 	    			
 	    			
-	    			Toast toast = Toast.makeText(getApplicationContext(), "Δώσε μας την απάντηση σου :(", Toast.LENGTH_SHORT);
+	    			Toast toast = Toast.makeText(getApplicationContext(), R.string.giveanswer, Toast.LENGTH_SHORT);
 	    			toast.show();
 	    		}
 	    		
@@ -201,16 +201,16 @@ public class Exercise1 extends Activity {
 	public void check0(int answer) {
 		
 		if (answer == result){
-			Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct , Toast.LENGTH_SHORT);
 			toast.show();
 		}
 		if (answer > result){
-			Toast toast = Toast.makeText(getApplicationContext(), "Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.wrongpleasesmaller, Toast.LENGTH_SHORT);
     			toast.show();
 	    	 errorflag = 1;
 	     }
 		if (answer < result){
-			Toast toast = Toast.makeText(getApplicationContext(), "Λαθος, δοκίμασε ένα ποιό μεγάλο νούμερο.", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.wrongpleasebigger, Toast.LENGTH_SHORT);
     			toast.show();
         	 errorflag = 1;
 	    }
@@ -218,12 +218,12 @@ public class Exercise1 extends Activity {
 
 	public void check1 (int answer){
 		if (answer == result){
-			 Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+			 Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
    			toast.show();
 	    	 }
 		
 		else {
-			 Toast toast = Toast.makeText(getApplicationContext(), "Λάθος. Επέλεξε έναν από τους 4 αριθμούς", Toast.LENGTH_SHORT);
+			 Toast toast = Toast.makeText(getApplicationContext(), R.string.wrongchoosefromfour, Toast.LENGTH_SHORT);
    			toast.show();
    
    	        TextView textView7 = (TextView) findViewById(R.id.textView7);
@@ -246,7 +246,7 @@ public class Exercise1 extends Activity {
 		
 		if (answer == result){
 			
-			Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
 			toast.show();
 		}
 		else {
@@ -263,7 +263,7 @@ public class Exercise1 extends Activity {
 			textView10.setTextColor(Color.parseColor("#FFFFFF"));
 			
 			
-			Toast toast = Toast.makeText(getApplicationContext(), "Για σκέψου το καλύτερα!", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.thinkmore, Toast.LENGTH_SHORT);
 			toast.show();
 	    	 errorflag = 3;
 		}		
@@ -272,12 +272,12 @@ public class Exercise1 extends Activity {
 	public void check3(int answer){
 		if (answer == result){
 	    	
-			Toast toast = Toast.makeText(getApplicationContext(), "Σωστά!", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
 			toast.show(); 
 		}
 		else {
             
-			Toast toast = Toast.makeText(getApplicationContext(), "Για σκέψου το καλύτερα!", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(getApplicationContext(),  R.string.thinkmore, Toast.LENGTH_SHORT);
 			toast.show();
 		}	
 	}

@@ -167,7 +167,7 @@ public class logindatabaseadapter {
 	}
 	
 	public void showErrors(String userName, String age) {
-		int aaa;
+		
 		Cursor cursor = db.query("USERS", null, " USERNAME=? and AGE=?",
 				new String[] { userName, age }, null, null, null);
 		
@@ -177,7 +177,7 @@ public class logindatabaseadapter {
             Toast.makeText(context, "kane tin askisi 1", Toast.LENGTH_SHORT).show();
 		}
 		cursor.moveToFirst();
-	    aaa = cursor.getInt(cursor.getColumnIndex("FAILSLEVEL1"));
+	    //aaa = cursor.getInt(cursor.getColumnIndex("FAILSLEVEL1"));
 	    }
 
 }

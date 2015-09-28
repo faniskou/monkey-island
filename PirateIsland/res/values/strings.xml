@@ -15,5 +15,20 @@
     <string name="title_activity_exercise1">Exercise1</string>
     <string name="title_activity_split">SplitActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    
+    
+    <string name="giveanswer">Δώσε μας την απάντηση σου :(</string>
+    <string name="correct">Σωστά !</string>
+    <string name="wrongpleasesmaller">Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.</string>
+    <string name="wrongpleasebigger">Λαθος, δοκίμασε ένα ποιό μεγάλο νούμερο.</string>
+    <string name="wrongchoosefromfour">Λάθος. Επέλεξε έναν από τους 4 αριθμούς</string>
+    <string name="thinkmore">Για σκέψου το καλύτερα!</string>
+    <string name="tripfrom">Ταξιδεύεις από </string>
+    <string name="tripdest"> με προορισμό το Νησί των Πειρατών!</string>
+    <string name="fieldvaccant">Κάτι είναι κενό</string>
+    <string name="passworddoesnotmatch">Βάλε σωστά την ηλικία σου </string>
+    <string name="accountsuccessfullycreated ">Καλωσήρθες πλήρωμα</string>
+    <string name="loginsuccessfull">Καλή διασκέδαση</string>
+    <string name="nameorpassword">Γραψέ σωστά τα στοιχεία σου</string>
 
 </resources>

@@ -116,7 +116,7 @@ public class LoginScreen extends Activity {
 						 if (addresses.size() > 0)
 				                System.out.println(addresses.get(0).getLocality());
 				            cityName = addresses.get(0).getLocality();
-				            Toast.makeText(getApplicationContext(), "Ταξιδεύεις από " + cityName + " με προορισμό το Νησί των Πειρατών!", Toast.LENGTH_LONG).show();
+				            Toast.makeText(getApplicationContext(), R.string.tripfrom + cityName + R.string.tripdest, Toast.LENGTH_LONG).show();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -156,20 +156,20 @@ public class LoginScreen extends Activity {
 				// check if any of the fields are vaccant
 				if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
 				{
-						Toast.makeText(getApplicationContext(), "Field Vaccant", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), R.string.fieldvaccant, Toast.LENGTH_LONG).show();
 						return;
 				}
 				// check if both password matches
 				if(!password.equals(confirmPassword))
 				{
-					Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), R.string.passworddoesnotmatch, Toast.LENGTH_LONG).show();
 					return;
 				}
 				else
 				{
 				    // Save the Data in Database
 				    loginDataBaseAdapter.insertEntry(userName, password);
-				    Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+				    Toast.makeText(getApplicationContext(), R.string.accountsuccessfullycreated, Toast.LENGTH_LONG).show();
 				    login(v);
 				}
 				
@@ -194,7 +194,7 @@ public class LoginScreen extends Activity {
 		// check if the Stored password matches with  Password entered by user
 		if(password.equals(storedPassword))
 		{
-			Toast.makeText(getApplicationContext(), "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), R.string.loginsuccessfull, Toast.LENGTH_LONG).show();
 			//TODO here is actual coding for this Activity 
 			Intent a = new Intent(LoginScreen.this, MainActivity.class);
             a.putExtra("name",userName);
@@ -206,7 +206,7 @@ public class LoginScreen extends Activity {
 		}
 		else
 		{
-			Toast.makeText(getApplicationContext(), "User Name or Password does not match", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), R.string.nameorpassword , Toast.LENGTH_LONG).show();
 		}
 	}
 	
