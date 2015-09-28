@@ -3,6 +3,7 @@ package com.main.pirateisland;
 //import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -160,6 +161,24 @@ public class Exercise1 extends Activity {
 	    		}
 	    	}
 		}); 	
+	      
+	      
+	      imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+	      imageButton2.setOnClickListener(new OnClickListener() {
+			
+	    	@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+	    		Intent a = new Intent(Exercise1.this,
+						MainActivity.class);
+	    		startActivity(a);
+	    		
+	    		}
+	    	
+		}); 	
+	      
+	      
+	      
 	}
 	
 	
