@@ -50,6 +50,8 @@ public class LoginScreen extends Activity {
 		//fanis to be deleted
 		editTextConfirmPassword=(EditText)findViewById(R.id.editTextPasswordToLogin);
  
+		/*
+		
 		btnSignIn=(Button)findViewById(R.id.buttonSignIn);
 		btnCreateAccount=(Button)findViewById(R.id.buttonCreateAccount);
 		btnCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +94,7 @@ public class LoginScreen extends Activity {
 				login(v);
 			}
 		
-		});
+		}); */
 		
 		imageButton1 = (ImageButton) findViewById(R.id.imageButton1);	
 		imageButton1.setOnClickListener(new View.OnClickListener() {

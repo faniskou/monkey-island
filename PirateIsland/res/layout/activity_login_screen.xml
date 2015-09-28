@@ -33,7 +33,7 @@
         android:ems="10"
         android:hint="@string/text_password"
         android:inputType="textPassword" />
-
+<!-- 
     <Button
         android:id="@+id/buttonSignIn"
         android:layout_width="fill_parent"
@@ -46,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:text="@string/create_account" />
+        
+  -->       
  
     <ImageButton
         android:id="@+id/imageButton1"
