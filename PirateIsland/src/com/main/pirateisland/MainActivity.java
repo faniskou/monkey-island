@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 		// // check if he in "LOT_OF_FAILS" Stereotipo
 		if (tempuser._MAXLEVEL >= 7) {
 			STEREOTYPO_BETTER_THAN_THIS = true;
-			tempuser._MAXLEVEL = 6;
+			tempuser._MAXLEVEL = 7;
 			 Toast.makeText(getApplicationContext(),
 			
 			 "pano apo 7" ,
