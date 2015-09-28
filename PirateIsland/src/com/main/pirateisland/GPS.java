@@ -21,7 +21,7 @@ public class GPS extends Service implements LocationListener {
 	boolean isNetworkEnabled = false;
 	boolean canGetLocation = false;
 	
-	Location location;
+	Location location;   
 	
 	double latitude;
 	double longitude;
@@ -32,8 +32,10 @@ public class GPS extends Service implements LocationListener {
 	protected LocationManager locationManager;
 	
 	public GPS(Context context){
+		
+		
 		this.context = context;
-	    getLocation();
+	    getLocation();   
 	}
 	
 	public Location getLocation() {
