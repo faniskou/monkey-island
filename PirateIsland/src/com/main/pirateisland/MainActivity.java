@@ -74,6 +74,10 @@ public class MainActivity extends Activity {
 		if (tempuser._MAXLEVEL >= 7) {
 			STEREOTYPO_BETTER_THAN_THIS = true;
 			tempuser._MAXLEVEL = 6;
+			 Toast.makeText(getApplicationContext(),
+			
+			 "pano apo 7" ,
+			 Toast.LENGTH_LONG).show();
 		}
 		tempuser._USERNEGATIVESCORE = tempuser._FAILSLEVEL1
 				+ tempuser._FAILSLEVEL2 + tempuser._FAILSLEVEL3
@@ -81,20 +85,33 @@ public class MainActivity extends Activity {
 				+ tempuser._FAILSLEVEL6;
 		// // check if he in "BETTER_THAN_THIS" Stereotipo
 		if (tempuser._USERNEGATIVESCORE <= (int) (tempuser._MAXLEVEL * 3 / 2)) {
-			STEREOTYPO_BETTER_THAN_THIS = true;
+			STEREOTYPO_LOT_OF_FAILS = false;
+			 Toast.makeText(getApplicationContext(),
+						
+			 "liga lathoi" ,
+			 Toast.LENGTH_LONG).show();
 		}
 		// go to the next dificulty level
 		if (STEREOTYPO_BETTER_THAN_THIS && !STEREOTYPO_LOT_OF_FAILS) {
 			tempuser._DIFFICULTY = tempuser._DIFFICULTY + 1;
-			tempuser._FAILSLEVEL1 = 0;
-			tempuser._FAILSLEVEL2 = 0;
-			tempuser._FAILSLEVEL3 = 0;
-			tempuser._FAILSLEVEL4 = 0;
-			tempuser._FAILSLEVEL5 = 0;
-			tempuser._FAILSLEVEL6 = 0;
+			tempuser._FAILSLEVEL1 = 3;
+			tempuser._FAILSLEVEL2 = 3;
+			tempuser._FAILSLEVEL3 = 3;
+			tempuser._FAILSLEVEL4 = 3;
+			tempuser._FAILSLEVEL5 = 3;
+			tempuser._FAILSLEVEL6 = 3;
 			tempuser._USERNEGATIVESCORE = 0;
 			tempuser._MAXLEVEL = 1;
+			 Toast.makeText(getApplicationContext(),			
+			 R.string.nextlevel ,
+			 Toast.LENGTH_LONG).show();
 		}
+		if (!STEREOTYPO_BETTER_THAN_THIS || STEREOTYPO_LOT_OF_FAILS) {
+			 Toast.makeText(getApplicationContext(),			
+			 R.string.nonextlevel ,
+			 Toast.LENGTH_LONG).show();
+		}
+		
 		return tempuser;
 	}
 
@@ -172,7 +189,8 @@ public class MainActivity extends Activity {
 			DataBase.updateAll(curuser);
 			curuser = DataBase.getUser(curname, curpass);
 		}
-
+		// print user
+		PrintUser(curuser);
 		// fix user
 		curuser = EvaluateUser(curuser);
 
@@ -180,8 +198,7 @@ public class MainActivity extends Activity {
 		// start view
 		setContentView(myView);
 
-		// print user
-		//PrintUser(curuser);
+
 
 		// start moves
 		mHandler = new Handler();

@@ -1,4 +1,5 @@
 package com.main.pirateisland;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
@@ -17,13 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 //import javax.swing.*;
 
-
 public class LoginScreen extends Activity {
-	
-	EditText editTextUserName,editTextPassword,editTextConfirmPassword;
-	Button btnCreateAccount,btnSignIn;
+
+	EditText editTextUserName, editTextPassword, editTextConfirmPassword;
+	Button btnCreateAccount, btnSignIn;
 	private MediaPlayer mp;
 	public MediaPlayer mPlayer;
 	logindatabaseadapter loginDataBaseAdapter;
@@ -31,185 +32,148 @@ public class LoginScreen extends Activity {
 	String cityName = null;
 	Button btnShowLocation;
 	ImageButton imageButton1, imageButton2, imageButton3;
-	
+
 	@SuppressLint("CutPasteId")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_screen);
-		
-		StartPlayer();
-		
-		// get Instance  of Database Adapter
-		loginDataBaseAdapter=new logindatabaseadapter(this);
-		loginDataBaseAdapter=loginDataBaseAdapter.open();
- 
-		// Get Refferences of Views
-		editTextUserName=(EditText)findViewById(R.id.editTextUserNameToLogin);
-		editTextPassword=(EditText)findViewById(R.id.editTextPasswordToLogin);
-		//fanis to be deleted
-		editTextConfirmPassword=(EditText)findViewById(R.id.editTextPasswordToLogin);
- 
-		/*
-		
-		btnSignIn=(Button)findViewById(R.id.buttonSignIn);
-		btnCreateAccount=(Button)findViewById(R.id.buttonCreateAccount);
-		btnCreateAccount.setOnClickListener(new View.OnClickListener() {
- 
-		public void onClick(View v) {
- 
-			String userName=editTextUserName.getText().toString();
-			String password=editTextPassword.getText().toString();
-			String confirmPassword=editTextConfirmPassword.getText().toString();
- 
-			// check if any of the fields are vaccant
-			if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
-			{
-					Toast.makeText(getApplicationContext(), "Field Vaccant", Toast.LENGTH_LONG).show();
-					return;
-			}
-			// check if both password matches
-			if(!password.equals(confirmPassword))
-			{
-				Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_LONG).show();
-				return;
-			}
-			else
-			{
-			    // Save the Data in Database
-			    loginDataBaseAdapter.insertEntry(userName, password);
-			    Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
-			    login(v);
-			}
-			
-		}
-		
-		
-		});
-		// Set On ClickListener
-		btnSignIn.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				// get The User name and Password
-				login(v);
-			}
-		
-		}); */
-		
-		imageButton1 = (ImageButton) findViewById(R.id.imageButton1);	
+		StartPlayer();
+
+		// get Instance of Database Adapter
+		loginDataBaseAdapter = new logindatabaseadapter(this);
+		loginDataBaseAdapter = loginDataBaseAdapter.open();
+
+		// Get Refferences of Views
+		editTextUserName = (EditText) findViewById(R.id.editTextUserNameToLogin);
+		editTextPassword = (EditText) findViewById(R.id.editTextPasswordToLogin);
+
+		imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
 		imageButton1.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
-				gps= new GPS(LoginScreen.this);
-				
-				//if (gps.canGetLocation()){
-				    
-					double latitude = gps.getLatitude();
-					double longitude = gps.getLongitude();
-					Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
-					
-					List<Address> addresses;
-					try {
-						addresses = gcd.getFromLocation(latitude, longitude, 1);
-						
-						 if (addresses.size() > 0)
-				                System.out.println(addresses.get(0).getLocality());
-				            cityName = addresses.get(0).getLocality();
-				            Toast.makeText(getApplicationContext(), R.string.tripfrom + cityName + R.string.tripdest, Toast.LENGTH_LONG).show();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					//if (addresses.size() > 0) 
-					   // System.out.println(addresses.get(0).getLocality());
-					
-					//Toast.makeText(getApplicationContext(), "Eisai edo -\nlat: " + latitude +"-\nlong:" + longitude, Toast.LENGTH_LONG).show();
-			//	} 
-			//else{
-				//	gps.showsettingsAlert();
-				//}
+
+				gps = new GPS(LoginScreen.this);
+
+				// if (gps.canGetLocation()){
+
+				double latitude = gps.getLatitude();
+				double longitude = gps.getLongitude();
+				Geocoder gcd = new Geocoder(getApplicationContext(), Locale
+						.getDefault());
+
+				List<Address> addresses;
+				try {
+					addresses = gcd.getFromLocation(latitude, longitude, 1);
+
+					if (addresses.size() > 0)
+						System.out.println(addresses.get(0).getLocality());
+					cityName = addresses.get(0).getLocality();
+					Toast.makeText(getApplicationContext(),
+							R.string.tripfrom + cityName + R.string.tripdest,
+							Toast.LENGTH_LONG).show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-		
+
 		});
-		
-		
-		imageButton2 = (ImageButton) findViewById(R.id.imageButton2);	
+
+		imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
 		imageButton2.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				// get The User name and Password
 				login(v);
 			}
-		
+
 		});
-		
-		imageButton3 = (ImageButton) findViewById(R.id.imageButton3);	
+
+		imageButton3 = (ImageButton) findViewById(R.id.imageButton3);
 		imageButton3.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
-				String userName=editTextUserName.getText().toString();
-				String password=editTextPassword.getText().toString();
-				String confirmPassword=editTextConfirmPassword.getText().toString();
-	 
+
+				String userName = editTextUserName.getText().toString();
+				String password = editTextPassword.getText().toString();
+
 				// check if any of the fields are vaccant
-				if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
-				{
-						Toast.makeText(getApplicationContext(), R.string.fieldvaccant, Toast.LENGTH_LONG).show();
-						return;
-				}
-				// check if both password matches
-				if(!password.equals(confirmPassword))
-				{
-					Toast.makeText(getApplicationContext(), R.string.passworddoesnotmatch, Toast.LENGTH_LONG).show();
+				if (userName.equals("") || password.equals("")) {
+					Toast.makeText(getApplicationContext(),
+							R.string.fieldvaccant, Toast.LENGTH_LONG).show();
 					return;
 				}
-				else
-				{
-				    // Save the Data in Database
-				    loginDataBaseAdapter.insertEntry(userName, password);
-				    Toast.makeText(getApplicationContext(), R.string.accountsuccessfullycreated, Toast.LENGTH_LONG).show();
-				    login(v);
+
+				// fetch the Password form database for respective user name
+				User storedUser = loginDataBaseAdapter.getUser(userName,
+						password);
+
+				// check if the Stored password matches with Password entered by
+				// user
+				if (storedUser._USERNAME == "NOT EXIST") {
+					// Save the Data in Database
+					loginDataBaseAdapter.insertEntry(userName, password);
+					Toast.makeText(getApplicationContext(),
+							R.string.accountsuccessfullycreated,
+							Toast.LENGTH_LONG).show();
+					login(v);
+
+				} else {
+					Toast.makeText(getApplicationContext(), R.string.oldpirate,
+							Toast.LENGTH_LONG).show();
+
 				}
-				
-				
-				
-				
+
 			}
-		
+
 		});
-		
-		
-		
-		
-	}
-	private void login (View v){
-		String userName=editTextUserName.getText().toString();
-		String password=editTextPassword.getText().toString();
 
+	}
+
+	private void login(View v) {
+		String userName = editTextUserName.getText().toString();
+		String password = editTextPassword.getText().toString();
+		if (userName.equals("") || password.equals("")) {
+			Toast.makeText(getApplicationContext(), R.string.fieldvaccant,
+					Toast.LENGTH_LONG).show();
+			return;
+
+		}
 		// fetch the Password form database for respective user name
-		String storedPassword=loginDataBaseAdapter.getSinlgeEntry(userName);
+		User storedUser = loginDataBaseAdapter.getUser(userName, password);
 
-		// check if the Stored password matches with  Password entered by user
-		if(password.equals(storedPassword))
-		{
-			Toast.makeText(getApplicationContext(), R.string.loginsuccessfull, Toast.LENGTH_LONG).show();
-			//TODO here is actual coding for this Activity 
-			Intent a = new Intent(LoginScreen.this, MainActivity.class);
-            a.putExtra("name",userName);
-            a.putExtra("pass",password);
-            startActivity(a);
-
-            finish();
-			
-		}
-		else
-		{
-			Toast.makeText(getApplicationContext(), R.string.nameorpassword , Toast.LENGTH_LONG).show();
-		}
-	}
+		// check if the Stored password matches with Password entered by user
+		if (storedUser._USERNAME == "NOT EXIST") {
+			int a = Integer.parseInt(password) + 1;
+			password = a + "";
 	
+			User storedUser2 = loginDataBaseAdapter.getUser(userName, password);
+			if (storedUser2._USERNAME == "NOT EXIST") {
+				Toast.makeText(getApplicationContext(), R.string.paliailikia,
+						Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getApplicationContext(),
+						R.string.nameorpassword, Toast.LENGTH_LONG).show();
+			}
+
+		} else {
+
+			Toast.makeText(getApplicationContext(), R.string.loginsuccessfull,
+					Toast.LENGTH_LONG).show();
+			// TODO here is actual coding for this Activity
+			Intent a = new Intent(LoginScreen.this, MainActivity.class);
+			a.putExtra("name", userName);
+			a.putExtra("pass", password);
+			startActivity(a);
+			finish();
+
+		}
+
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -217,53 +181,36 @@ public class LoginScreen extends Activity {
 		return true;
 	}
 
+	Connection connection = null;
 
-	Connection connection=null;
-	public LoginScreen(){
-		//initialize
-		//connection=sqlliteconnection.dbConnector();
-		
-	}
-	
-	public  void StartPlayer(){
+	public void StartPlayer() {
 		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song2);
 
+		// TODO Auto-generated method stub
+		mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song2);
+		mPlayer.start();// Start playing the music
 
-		            // TODO Auto-generated method stub
-		            mPlayer = MediaPlayer.create(getApplicationContext(),R.raw.song2);
-		            mPlayer.start();//Start playing the music
+	}
 
+	public void StopPlayer() {
+		if (mPlayer != null && mPlayer.isPlaying()) {// If music is playing
+														// already
+			mPlayer.stop();// Stop playing the music
 		}
-		public void StopPlayer(){
-		            if(mPlayer!=null && mPlayer.isPlaying()){//If music is playing already
-		                mPlayer.stop();//Stop playing the music
-		          }
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (null != mp) {
+			mp.release();
 		}
-	
-	
-	@Override
-	 protected void onDestroy() {
-	   if(null!=mp){
-	  mp.release();
-	   }
-	   super.onDestroy();
-	 }
-	/*
-	@Override
-	public void onResume() {
-       super.onResume();
-     StartPlayer();
-    }
-	
-	*/
-	
+		super.onDestroy();
+	}
+
 	@Override
 	public void onPause() {
-       super.onPause();
-     StopPlayer();
-    }
-    
-		
-		
-	
+		super.onPause();
+		StopPlayer();
+	}
+
 }

@@ -59,9 +59,20 @@ public class logindatabaseadapter {
 	public void insertEntry(String userName, String password) {
 		ContentValues newValues = new ContentValues();
 		// Assign values for each row.
+		
+		
 		newValues.put("USERNAME", userName);
 		newValues.put("AGE", password);
-
+		newValues.put("FAILSLEVEL1", 3);
+		newValues.put("FAILSLEVEL2", 3);
+		newValues.put("FAILSLEVEL3", 3);
+		newValues.put("FAILSLEVEL4", 3);
+		newValues.put("FAILSLEVEL5", 3);
+		newValues.put("FAILSLEVEL6", 3);
+		newValues.put("USERNEGATIVESCORE", 0);
+		newValues.put("MAXLEVEL", 1);
+		newValues.put("CURRENTLEVEL", 1);
+		newValues.put("DIFFICULTY", 1);
 		// Insert the row into your table
 		db.insert("USERS", null, newValues);
 		// /Toast.makeText(context, "Reminder Is Successfully Saved",

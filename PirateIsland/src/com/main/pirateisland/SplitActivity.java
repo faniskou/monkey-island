@@ -504,35 +504,41 @@ public class SplitActivity extends Activity {
 
 		case MotionEvent.ACTION_DOWN: // touch down so check if the finger is on
 			if (gamestate == 2) {
-				// temp set user
-				switch (curuser._CURRENTLEVEL) {
-				case 1:
+				if (curuser._CURRENTLEVEL== 1 )
+				{
 					curuser._FAILSLEVEL1 = helpused;
-				case 2:
-					curuser._FAILSLEVEL2 = helpused;
-				case 3:
-					curuser._FAILSLEVEL3 = helpused;
-				case 4:
-					curuser._FAILSLEVEL4 = helpused;
-				case 5:
-					curuser._FAILSLEVEL5 = helpused;
-				case 6:
-					curuser._FAILSLEVEL6 = helpused;
-				default:
-					// statements // they are executed if none of the above case
-					// is satisfied
-					break;
 				}
+				else if (curuser._CURRENTLEVEL== 2 )
+				{
+					curuser._FAILSLEVEL2 = helpused;
+				}
+				else if (curuser._CURRENTLEVEL== 3 )
+				{
+					curuser._FAILSLEVEL3 = helpused;
+				}
+				else if (curuser._CURRENTLEVEL== 4 )
+				{
+					curuser._FAILSLEVEL4 = helpused;
+				}
+				else if (curuser._CURRENTLEVEL== 5 )
+				{
+					curuser._FAILSLEVEL5 = helpused;
+				}
+				else if (curuser._CURRENTLEVEL== 6 )
+				{
+					curuser._FAILSLEVEL6 = helpused;
+				}
+
 
 				if (curuser._MAXLEVEL == curuser._CURRENTLEVEL) {
 					curuser._MAXLEVEL = curuser._MAXLEVEL + 1;
 
-					DataBase.updateAll(curuser);
 				}
+				DataBase.updateAll(curuser);
 				Intent a = new Intent(SplitActivity.this, MainActivity.class);
 				// we must change it accordingly
-				a.putExtra("name", "no");
-				a.putExtra("pass", "user");
+				a.putExtra("name", curuser._USERNAME);
+				a.putExtra("pass", curuser._AGE );
 				startActivity(a);
 
 				finish();
@@ -573,9 +579,8 @@ public class SplitActivity extends Activity {
 							&& Math.abs(Y - (backplace.y + (7 * hop))) < 8 * hop) {
 						Intent a = new Intent(SplitActivity.this,
 								MainActivity.class);
-						// we must change it accordingly
-						a.putExtra("name", "no");
-						a.putExtra("pass", "user");
+						a.putExtra("name", curuser._USERNAME);
+						a.putExtra("pass", curuser._AGE );
 						startActivity(a);
 
 						finish();

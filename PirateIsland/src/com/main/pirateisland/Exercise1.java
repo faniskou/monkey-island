@@ -1,6 +1,8 @@
 package com.main.pirateisland;
 
 //import android.support.v7.app.ActionBarActivity;
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,9 +27,9 @@ public class Exercise1 extends Activity {
 	
 	int errorflag = 0; 
 	int MyException;
-	final int  random1 = (int) ((Math.random() * 10 ) + 1);
-	final int  random2 = (int) ((Math.random() * 10 ) + 1);
-	final int  result = random1 +random2;
+	int  random1 = (int) ((Math.random() * 10 ) + 1);
+	int  random2 = (int) ((Math.random() * 10 ) + 1);
+	 int  result ;
 	final int A = result - 3;
     final int B = result - 1;
 	final int C = result + 1;
@@ -44,7 +46,6 @@ public class Exercise1 extends Activity {
 	MyFrame myView;
 	
 	private logindatabaseadapter DataBase;
-	@SuppressWarnings("unused")
 	private User curuser;
 	
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
@@ -101,9 +102,54 @@ public class Exercise1 extends Activity {
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 	};
-	
-	
-	
+
+	private void finishok(){
+		Toast toast = Toast.makeText(getApplicationContext(), R.string.correct , Toast.LENGTH_SHORT);
+		toast.show();
+
+		
+		if (curuser._CURRENTLEVEL== 1 )
+		{
+			curuser._FAILSLEVEL1 = errorflag;
+		}
+		else if (curuser._CURRENTLEVEL== 2 )
+		{
+			curuser._FAILSLEVEL2 = errorflag;
+		}
+		else if (curuser._CURRENTLEVEL== 3 )
+		{
+			curuser._FAILSLEVEL3 = errorflag;
+		}
+		else if (curuser._CURRENTLEVEL== 4 )
+		{
+			curuser._FAILSLEVEL4 = errorflag;
+		}
+		else if (curuser._CURRENTLEVEL== 5 )
+		{
+			curuser._FAILSLEVEL5 = errorflag;
+		}
+		else if (curuser._CURRENTLEVEL== 6 )
+		{
+			curuser._FAILSLEVEL6 = errorflag;
+		}
+
+
+		if (curuser._MAXLEVEL == curuser._CURRENTLEVEL) {
+			curuser._MAXLEVEL = curuser._MAXLEVEL + 1;
+
+		}
+		DataBase.updateAll(curuser);
+		Intent a = new Intent(Exercise1.this, MainActivity.class);
+
+		a.putExtra("name", curuser._USERNAME);
+		a.putExtra("pass", curuser._AGE );
+		startActivity(a);
+
+		finish();
+		
+		
+		
+	} 
 	
 	
 	@Override
@@ -123,6 +169,9 @@ public class Exercise1 extends Activity {
 		DataBase = DataBase.open();
 		curuser = DataBase.getUser(curname, curpass);
 		
+	    random1 = new Random().nextInt(4) + (curuser._CURRENTLEVEL)	+ ((10 * curuser._DIFFICULTY) - 1);
+		random2 = new Random().nextInt(4) + (curuser._CURRENTLEVEL)	+ ((10 * curuser._DIFFICULTY) - 1);
+		 result = random1 +random2;
 		
 		//to Onoma tou xristi einai stin "name"
 		
@@ -146,7 +195,7 @@ public class Exercise1 extends Activity {
 			
 	    	@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 	    		
 	    		EditText editText1 = (EditText) findViewById(R.id.editText1);
                 String answercheck = editText1.getText().toString();
@@ -184,9 +233,12 @@ public class Exercise1 extends Activity {
 			
 	    	@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+		
 	    		Intent a = new Intent(Exercise1.this,
 						MainActivity.class);
+
+	    		a.putExtra("name", curuser._USERNAME);
+	    		a.putExtra("pass", curuser._AGE );
 	    		startActivity(a);
 	    		
 	    		}
@@ -201,8 +253,7 @@ public class Exercise1 extends Activity {
 	public void check0(int answer) {
 		
 		if (answer == result){
-			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct , Toast.LENGTH_SHORT);
-			toast.show();
+			finishok();
 		}
 		if (answer > result){
 			Toast toast = Toast.makeText(getApplicationContext(), R.string.wrongpleasesmaller, Toast.LENGTH_SHORT);
@@ -218,8 +269,7 @@ public class Exercise1 extends Activity {
 
 	public void check1 (int answer){
 		if (answer == result){
-			 Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
-   			toast.show();
+			finishok();
 	    	 }
 		
 		else {
@@ -246,8 +296,7 @@ public class Exercise1 extends Activity {
 		
 		if (answer == result){
 			
-			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
-			toast.show();
+			finishok();
 		}
 		else {
 			TextView textView7 = (TextView) findViewById(R.id.textView7);
@@ -272,8 +321,7 @@ public class Exercise1 extends Activity {
 	public void check3(int answer){
 		if (answer == result){
 	    	
-			Toast toast = Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT);
-			toast.show(); 
+			finishok();
 		}
 		else {
             

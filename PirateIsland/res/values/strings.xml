@@ -7,16 +7,14 @@
     <string name="title_activity_login">Login</string>
     <string name="singin">Sing In</string>
     <string name="title_activity_login_screen">LoginScreen</string>
-    <string name="user_name">User Name</string>
-    <string name="text_password">Password</string>
-    <string name="create_account">Create Account</string>
+    <string name="user_name">Το ονομά σου</string>
+    <string name="text_password">Την ηλικία σου</string>
+    <string name="create_account">Δημιουργία πειρατή</string>
     <string name="text_pass">no pass propably error</string>
     <string name="text_name">no name propably error</string>
     <string name="title_activity_exercise1">Exercise1</string>
     <string name="title_activity_split">SplitActivity</string>
     <string name="title_activity_main">MainActivity</string>
-    
-    
     <string name="giveanswer">Δώσε μας την απάντηση σου :(</string>
     <string name="correct">Σωστά !</string>
     <string name="wrongpleasesmaller">Λαθος, δοκίμασε ένα ποιό μικρό νούμερο.</string>
@@ -30,5 +28,14 @@
     <string name="accountsuccessfullycreated ">Καλωσήρθες πλήρωμα</string>
     <string name="loginsuccessfull">Καλή διασκέδαση</string>
     <string name="nameorpassword">Γραψέ σωστά τα στοιχεία σου</string>
+    <string name="oldpirate">Υπάρχει ήδη πειρατής με τα στοιχεία σου</string>
+    <string name="hi">Καλώς ήρθες στο νησί των πειρατών!</string>
+    <string name="login">login</string>
+    <string name="register">register</string>
+    <string name="gps">gps</string>
+        <string name="paliailikia">Χρησιμοποίησε την ηλικία με την οποία μπήκες στο πλήρωμα</string>
 
+    <string name="nextlevel">ΣΥΓΧΑΡΗΤΗΡΙΑ ΠΕΡΑΣΕΣ ΕΠΙΠΕΔΟ</string>
+    <string name="nonextlevel">ΜΑΖΕΨΕ ΠΕΡΙΣΣΟΤΕΡΑ ΑΣΤΕΡΙΑ ΓΙΑ ΝΕΟ ΕΠΙΠΕΔΟ</string>
+    
 </resources>
