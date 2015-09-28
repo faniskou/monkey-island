@@ -44,6 +44,9 @@ public class Exercise1 extends Activity {
 	
 	MyFrame myView;
 	
+	private logindatabaseadapter DataBase;
+	private User curuser;
+	
 	private final SensorEventListener mSensorListener = new SensorEventListener() {
 
 		public void onSensorChanged(SensorEvent se) {
@@ -107,6 +110,19 @@ public class Exercise1 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise1);
+		
+		// get user
+		Intent inten = getIntent();
+		String curname = inten.getStringExtra("name");
+		String curpass = inten.getStringExtra("pass");
+		if (curname == null || curpass == null) {
+			curname = "no";
+			curpass = "user";
+			}
+		DataBase = new logindatabaseadapter(this);
+		DataBase = DataBase.open();
+		curuser = DataBase.getUser(curname, curpass);
+		
 		
 		//to Onoma tou xristi einai stin "name"
 		
