@@ -124,6 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:onClick="onClick"
+        android:clickable="true"
         android:text="&apos;Ελεγξε την απάντηση σου!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

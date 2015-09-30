@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.MotionEvent;
 
 import com.main.pirateisland.SplitActivity.MyFrame;
 
@@ -245,6 +246,44 @@ public class Exercise1 extends Activity {
 	    	
 		}); 	
 	      
+	     TextView textView11 = (TextView) findViewById(R.id.textView11);
+	     textView11.setOnClickListener(new OnClickListener() {
+			
+	    	@Override
+			public void onClick(View v) {
+		
+	    		EditText editText1 = (EditText) findViewById(R.id.editText1);
+                String answercheck = editText1.getText().toString();
+	    		
+	    		if (answercheck.matches("")) {
+	    			
+	    			
+	    			Toast toast = Toast.makeText(getApplicationContext(), R.string.giveanswer, Toast.LENGTH_SHORT);
+	    			toast.show();
+	    		}
+	    		
+	    		else{
+	    			int answer = Integer.parseInt(editText1.getText().toString());
+	    			
+	    			if (errorflag == 3){
+		    			check3(answer);
+		    		}
+		    		if (errorflag == 2){
+		    			check2(answer);
+		    		}
+		    		if (errorflag == 1) {
+		    			check1(answer);
+				    }
+		    		if (errorflag == 0) {
+		    			check0(answer);	 
+		    			}
+	    			
+	    		}
+	    		
+	    		}
+	    	
+		}); 	
+	      
 	      
 	      
 	}
@@ -331,6 +370,10 @@ public class Exercise1 extends Activity {
 	}
 	
 	
+	
+	
+	
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -355,8 +398,5 @@ public class Exercise1 extends Activity {
 		getMenuInflater().inflate(R.menu.exercise1, menu);
 		return true;
 	}
-	
-	
-	
 
 }
