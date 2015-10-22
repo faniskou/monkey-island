@@ -29,10 +29,8 @@ public class Exercise1 extends Activity {
 	int MyException;
 	int  random1 = (int) ((Math.random() * 10 ) + 1);
 	int  random2 = (int) ((Math.random() * 10 ) + 1);
-	 int  result ;
-	final int A = result - 3;
-    final int B = result - 1;
-	final int C = result + 1;
+	int  result ;
+	int A ,B ,C ;
 	
 	logindatabaseadapter loginDataBaseAdapter;
 	
@@ -173,6 +171,9 @@ public class Exercise1 extends Activity {
 		random2 = new Random().nextInt(4) + (curuser._CURRENTLEVEL)	+ ((10 * curuser._DIFFICULTY) - 1);
 		 result = random1 +random2;
 		
+			 A = result - 3;
+		     B = result - 1;
+			 C = result + 1;
 		//to Onoma tou xristi einai stin "name"
 		
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
