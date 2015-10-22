@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
 			 R.string.nextlevel ,
 			 Toast.LENGTH_LONG).show();
 		}
-		if (!STEREOTYPO_BETTER_THAN_THIS || STEREOTYPO_LOT_OF_FAILS) {
+		if ((!STEREOTYPO_BETTER_THAN_THIS || STEREOTYPO_LOT_OF_FAILS) && tempuser._MAXLEVEL == 7) {
 			 Toast.makeText(getApplicationContext(),			
 			 R.string.nonextlevel ,
 			 Toast.LENGTH_LONG).show();
@@ -190,7 +190,7 @@ public class MainActivity extends Activity {
 			curuser = DataBase.getUser(curname, curpass);
 		}
 		// print user
-		PrintUser(curuser);
+		//PrintUser(curuser);
 		// fix user
 		curuser = EvaluateUser(curuser);
 

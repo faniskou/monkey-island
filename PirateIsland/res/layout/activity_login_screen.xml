@@ -18,6 +18,7 @@
 
     <EditText
         android:id="@+id/editTextUserNameToLogin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -37,7 +38,7 @@
         android:layout_below="@+id/editTextUserNameToLogin"
         android:ems="10"
         android:hint="@string/text_password"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:textColor="#FFFFFF"
         android:textSize="26sp" />
 

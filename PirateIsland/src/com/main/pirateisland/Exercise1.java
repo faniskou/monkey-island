@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.MotionEvent;
 
 import com.main.pirateisland.SplitActivity.MyFrame;
 

@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -74,13 +73,12 @@ public class LoginScreen extends Activity {
 						System.out.println(addresses.get(0).getLocality());
 					cityName = addresses.get(0).getLocality();
 					
-					String trip = getApplicationContext().getString(R.string.tripfrom) + cityName + getApplicationContext().getString(R.string.tripdest);
+					String trip = getApplicationContext().getString(R.string.tripfrom) + " " +cityName + " "+ getApplicationContext().getString(R.string.tripdest);
 					
 					Toast.makeText(getApplicationContext(),
 							trip,
 							Toast.LENGTH_LONG).show();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}  
 				//*/
@@ -163,23 +161,21 @@ public class LoginScreen extends Activity {
 
 		// check if the Stored password matches with Password entered by user
 		if (storedUser._USERNAME == "NOT EXIST") {
-			int a = Integer.parseInt(password) + 1;
+			int a = Integer.parseInt(password) - 1;
 			password = a + "";
-	
 			User storedUser2 = loginDataBaseAdapter.getUser(userName, password);
 			if (storedUser2._USERNAME == "NOT EXIST") {
-				Toast.makeText(getApplicationContext(), R.string.paliailikia,
+				Toast.makeText(getApplicationContext(), R.string.nameorpassword ,
 						Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(getApplicationContext(),
-						R.string.nameorpassword, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), R.string.paliailikia, 
+						Toast.LENGTH_LONG).show();
 			}
 
 		} else {
 
 			Toast.makeText(getApplicationContext(), R.string.loginsuccessfull,
 					Toast.LENGTH_LONG).show();
-			// TODO here is actual coding for this Activity
 			Intent a = new Intent(LoginScreen.this, MainActivity.class);
 			a.putExtra("name", userName);
 			a.putExtra("pass", password);
@@ -200,9 +196,9 @@ public class LoginScreen extends Activity {
 	Connection connection = null;
 
 	public void StartPlayer() {
+		@SuppressWarnings("unused")
 		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song2);
 
-		// TODO Auto-generated method stub
 		mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song2);
 		mPlayer.start();// Start playing the music
 

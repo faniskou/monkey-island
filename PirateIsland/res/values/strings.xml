@@ -33,7 +33,7 @@
     <string name="login">login</string>
     <string name="register">register</string>
     <string name="gps">gps</string>
-        <string name="paliailikia">Χρησιμοποίησε την ηλικία με την οποία μπήκες στο πλήρωμα</string>
+    <string name="paliailikia">Χρησιμοποίησε την ηλικία με την οποία μπήκες στο πλήρωμα</string>
 
     <string name="nextlevel">ΣΥΓΧΑΡΗΤΗΡΙΑ ΠΕΡΑΣΕΣ ΕΠΙΠΕΔΟ</string>
     <string name="nonextlevel">ΜΑΖΕΨΕ ΠΕΡΙΣΣΟΤΕΡΑ ΑΣΤΕΡΙΑ ΓΙΑ ΝΕΟ ΕΠΙΠΕΔΟ</string>
