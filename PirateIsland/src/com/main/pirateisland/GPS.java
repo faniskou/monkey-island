@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings; //maybe?
+import android.widget.Toast;
 
 public class GPS extends Service implements LocationListener {
 
@@ -48,9 +49,12 @@ public class GPS extends Service implements LocationListener {
 			
 			if(!isGPSEnabled && !isNetworkEnabled) {
 				
+				Toast toast = Toast.makeText(getApplicationContext(), R.string.giveanswer, Toast.LENGTH_SHORT);
+    			toast.show(); // auto edo
 				
 			}else {
 				this.canGetLocation = true;
+				//pairnoume ton location apo ton provider -wifi
 				
 				if(isNetworkEnabled){
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
@@ -65,7 +69,7 @@ public class GPS extends Service implements LocationListener {
 					}
 				}
 			}
-				
+				//an to GPS einai energopoiimeno, pernoume apo ekei
 				if (isGPSEnabled){
 					if(location == null){
 						locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
@@ -110,40 +114,42 @@ public class GPS extends Service implements LocationListener {
 		return longitude;
 	}
 	
-	public boolean canGetLocation(){
-		return this.canGetLocation();
-	}
+	 public boolean canGetLocation() {
+	        return this.canGetLocation;
+	    }
 	
-	public void showsettingsAlert(){
-		
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-		
-		alertDialog.setTitle("GPS is Settings");
-		
-		alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-		
-		alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-				context.startActivity(intent);
-			}
-		});
-		
-		alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				dialog.cancel();
-			}
-		});
-		
-		alertDialog.show();
-		
-	}
+	
+	
+	 public void showSettingsAlert(){
+	        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+	      
+	        // Setting Dialog Title
+	        alertDialog.setTitle("GPS is settings");
+	  
+	        // Setting Dialog Message
+	        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+	  
+	        // Setting Icon to Dialog
+	        //alertDialog.setIcon(R.drawable.delete);
+	  
+	        // On pressing Settings button
+	        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog,int which) {
+	                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+	                context.startActivity(intent);
+	            }
+	        });
+	  
+	        // on pressing cancel button
+	        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int which) {
+	            dialog.cancel();
+	            }
+	        });
+	  
+	        // Showing Alert Message
+	        alertDialog.show();
+	    }
 	
 	
 	@Override

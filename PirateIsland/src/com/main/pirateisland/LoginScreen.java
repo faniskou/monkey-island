@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,6 +33,7 @@ public class LoginScreen extends Activity {
 	String cityName = null;
 	Button btnShowLocation;
 	ImageButton imageButton1, imageButton2, imageButton3;
+	
 
 	@SuppressLint("CutPasteId")
 	@Override
@@ -54,12 +56,13 @@ public class LoginScreen extends Activity {
 
 			public void onClick(View v) {
 
-				gps = new GPS(LoginScreen.this);
+				GPS gps = new GPS(LoginScreen.this);
 
-				// if (gps.canGetLocation()){
+				if (gps.canGetLocation()){
 
 				double latitude = gps.getLatitude();
 				double longitude = gps.getLongitude();
+				///*
 				Geocoder gcd = new Geocoder(getApplicationContext(), Locale
 						.getDefault());
 
@@ -70,12 +73,25 @@ public class LoginScreen extends Activity {
 					if (addresses.size() > 0)
 						System.out.println(addresses.get(0).getLocality());
 					cityName = addresses.get(0).getLocality();
+					
+					String trip = getApplicationContext().getString(R.string.tripfrom) + cityName + getApplicationContext().getString(R.string.tripdest);
+					
 					Toast.makeText(getApplicationContext(),
-							R.string.tripfrom + cityName + R.string.tripdest,
+							trip,
 							Toast.LENGTH_LONG).show();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}  
+				//*/
+				
+				//Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();    
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                
 				}
 
 			}
