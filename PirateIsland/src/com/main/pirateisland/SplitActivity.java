@@ -473,10 +473,11 @@ public class SplitActivity extends Activity {
 				if (astring != 0) {
 					paint.setColor(Color.RED);
 				}
+				int bstring = askedresultplacementscount - minusplacementscount;
 				// basketplace.x, basketplace.y
 				canvas.drawText(placementscount + "  -  "
 						+ minusplacementscount + "  =   "
-						+ askedresultplacementscount, textplace.x + 10,
+						+ bstring, textplace.x + 10,
 						textplace.y - 3 * (fontssize + 5), paint);
 				paint.setColor(Color.WHITE);
 				canvas.drawText(String.valueOf(minusplacementscount),
